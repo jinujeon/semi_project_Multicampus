@@ -7,6 +7,6 @@ import com.vo.MemberVO;
 
 @Repository("mdao")
 public interface MemberDao extends Dao<String, MemberVO> {
-	public void setcnt(Integer k) throws Exception;
+	public void setcnt(String k) throws Exception;
 
 }

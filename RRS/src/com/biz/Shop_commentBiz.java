@@ -2,25 +2,26 @@ package com.biz;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import com.frame.Biz;
 import com.frame.Dao;
-import com.vo.MemberVO;
+import com.vo.ShopVO;
 
-@Service("ubiz")
-public class UserBiz implements Biz<String, MemberVO> {
-	@Autowired
-	Dao<String, MemberVO> dao;
+@Service("sbiz")
+public class Shop_commentBiz implements Biz<Integer, ShopVO> {
+	@Resource(name="sdao")
+	Dao<Integer, ShopVO> dao;
 
 	@Override
-	public void register(MemberVO v) throws Exception {
+	public void register(ShopVO v) throws Exception {
 		dao.insert(v);
 	}
 
 	@Override
-	public void remove(String k) throws Exception {
+	public void remove(Integer k) throws Exception {
 		int result = dao.delete(k);
 		if(result == 0) {	//쿼리문 작동 실패시 0
 			throw new Exception();
@@ -28,7 +29,7 @@ public class UserBiz implements Biz<String, MemberVO> {
 	}
 
 	@Override
-	public void modify(MemberVO v) throws Exception {
+	public void modify(ShopVO v) throws Exception {
 		int result = dao.update(v);
 		if(result == 0) {	//쿼리문 작동 실패시 0
 			throw new Exception();
@@ -36,20 +37,18 @@ public class UserBiz implements Biz<String, MemberVO> {
 	}
 
 	@Override
-	public MemberVO get(String k) throws Exception {
+	public ShopVO get(Integer k) throws Exception {
 		return dao.select(k);
 	}
 
 	@Override
-	public ArrayList<MemberVO> get() throws Exception {
+	public ArrayList<ShopVO> get() throws Exception {
 		return dao.selectall();
 	}
 
 	@Override
-	public ArrayList<MemberVO> search(Object obj) throws Exception {
+	public ArrayList<ShopVO> search(Object obj) throws Exception {
 		return null;
 	}
-
-
 
 }
