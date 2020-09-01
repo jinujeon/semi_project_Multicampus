@@ -46,11 +46,6 @@ public class MemberBiz implements Biz<String, MemberVO> {
 		return dao.selectall();
 	}
 
-	@Override
-	public ArrayList<MemberVO> search(Object obj) throws Exception {
-		return null;
-	}
-
 
 
 }

@@ -47,9 +47,5 @@ public class BoardBiz implements Biz<Integer, BoardVO> {
 		return dao.selectall();
 	}
 
-	@Override
-	public ArrayList<BoardVO> search(Object obj) throws Exception {
-		return null;
-	}
 
 }

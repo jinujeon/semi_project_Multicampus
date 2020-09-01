@@ -46,9 +46,4 @@ public class Shop_commentBiz implements Biz<Integer, Shop_commentVO> {
 		return dao.selectall();
 	}
 
-	@Override
-	public ArrayList<Shop_commentVO> search(Object obj) throws Exception {
-		return null;
-	}
-
 }
