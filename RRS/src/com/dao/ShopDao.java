@@ -6,8 +6,6 @@ import com.frame.Dao;
 import com.vo.ShopVO;
 
 @Repository("sdao")
-adsf
-
 public interface ShopDao extends Dao<Integer, ShopVO> {
 	public void setcnt(Integer k) throws Exception;
 
