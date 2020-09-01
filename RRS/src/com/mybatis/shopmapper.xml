@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ShopDao">
+	
+<!-- 	<resultMap type="user" id="um">
+		<result property="identification" column="id"/>
+		<result property="password" column="pwd"/>
+		<result property="username" column="name"/>
+	</resultMap> -->
+	
+	
+	<insert id="insert" parameterType="shop">
+		INSERT INTO SHOP VALUES 
+		(S_SEQ.NEXTVAL,#{name},#{price},SYSDATE,#{img})
+	</insert>
+	
+	<update id="update" parameterType="shop">
+		UPDATE SHOP SET NAME=#{name}, PRICE=#{price},IMG=#{img} WHERE ID=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM SHOP WHERE ID=#{k}
+	</delete>
+	
+	<select id="select" parameterType="Integer" 
+	resultType="shop">
+		SELECT * FROM SHOP WHERE ID=#{k}
+	</select>
+	
+	<select id="selectall" resultType="shop">
+		SELECT * FROM SHOP 
+	</select>
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
