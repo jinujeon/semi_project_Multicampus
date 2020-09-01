@@ -19,7 +19,7 @@ public class App2 {
 		
 		Biz<String,MemberVO> biz = (Biz)factory.getBean("ubiz");
 		
-		MemberVO u = new MemberVO("id73", "pwd73","ÀÓ¸»¼÷");
+		//MemberVO u = new MemberVO("id73", "pwd73","ÀÓ¸»¼÷");
 		ArrayList<MemberVO> list = null;
 		try {
 			list = biz.get();

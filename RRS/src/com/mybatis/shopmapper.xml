@@ -13,48 +13,26 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<insert id="insert" parameterType="shop">
 		INSERT INTO SHOP VALUES 
-		(S_SEQ.NEXTVAL,#{name},#{price},SYSDATE,#{img})
+		(S_SEQ.NEXTVAL,#{userid},#{shopname},#{shopphonenumber},#{address},#{locate},0.0,0.0,SYSDATE,0,#{info},#{img1},#{img2},#{img3})
 	</insert>
 	
 	<update id="update" parameterType="shop">
-		UPDATE SHOP SET NAME=#{name}, PRICE=#{price},IMG=#{img} WHERE ID=#{id}
+		UPDATE SHOP SET SHOPID=#{shopname}, SHOPPHONENUMBER=#{shopphonenumber}, ADDRESS=#{address}, LOCATE=#{locate}, INFO=#{info}, IMG1=#{img1}, IMG2=#{img2}, IMG3=#{img3} WHERE SHOPID=#{shopid}
 	</update>
 	
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM SHOP WHERE ID=#{k}
+		DELETE FROM SHOP WHERE SHOPID=#{k}
 	</delete>
 	
 	<select id="select" parameterType="Integer" 
 	resultType="shop">
-		SELECT * FROM SHOP WHERE ID=#{k}
+		SELECT * FROM SHOP WHERE SHOPID=#{k}
 	</select>
 	
 	<select id="selectall" resultType="shop">
-		SELECT * FROM SHOP 
+		SELECT * FROM SHOP
 	</select>
 	
 	
 	
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
