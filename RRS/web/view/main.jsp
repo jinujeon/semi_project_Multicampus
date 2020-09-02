@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
 *{
@@ -62,6 +62,7 @@ footer{
 				<ul>
 					<li><a href="main.mc">MAIN</a></li>
 					<li><a href="login.mc">LOGIN</a></li>
+					<li><a href="shop_regist.mc">게시글등록</a></li>
 				</ul>
 			</c:when>
 			<c:otherwise>
@@ -73,6 +74,7 @@ footer{
 					<li><a href="userselect.mc">USERSELECT</a></li>
 					<li><a href="shopadd.mc">SHOPADD</a></li>
 					<li><a href="shopselect.mc">SHOPSELECT</a></li>
+					<li><a href="shop_regist.mc">게시글등록</a></li>
 				</ul>
 			</c:otherwise>
 		</c:choose>

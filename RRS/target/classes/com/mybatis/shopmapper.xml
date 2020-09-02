@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<insert id="insert" parameterType="shop">
 		INSERT INTO SHOP VALUES 
-		(S_SEQ.NEXTVAL,#{userid},#{shopname},#{shopphonenumber},#{address},#{locate},0.0,0.0,SYSDATE,0,#{info},#{img1},#{img2},#{img3})
+		(S_SEQ.NEXTVAL, #{userid}, #{shopname}, #{shopphonenumber}, #{address}, #{locate}, 37.123456, 37.123456, SYSDATE, 0, #{info}, #{img1}, #{img2}, #{img3})
 	</insert>
 	
 	<update id="update" parameterType="shop">
