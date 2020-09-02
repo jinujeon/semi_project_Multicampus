@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -52,6 +52,10 @@ footer{
 	background:black;
 	margin:0 auto;
 }
+
+#cp{
+	overflow: auto;
+}
 </style>
 </head>
 <body>
@@ -62,26 +66,26 @@ footer{
 				<ul>
 					<li><a href="main.mc">MAIN</a></li>
 					<li><a href="login.mc">LOGIN</a></li>
-					<li><a href="shop_regist.mc">�Խñ۵��</a></li>
+					<li><a href="shop_regist.mc">게시글등록</a></li>
+					<li><a href="shop_list.mc">게시글보기</a></li>
 				</ul>
 			</c:when>
 			<c:otherwise>
 				<ul>
-					<li>${loginuser.id }��</li>
+					<li>${loginuser.id }님</li>
 					<li><a href="main.mc">MAIN</a></li>
 					<li><a href="logout.mc">LOGOUT</a></li>
 					<li><a href="useradd.mc">USERADD</a></li>
 					<li><a href="userselect.mc">USERSELECT</a></li>
 					<li><a href="shopadd.mc">SHOPADD</a></li>
-					<li><a href="shopselect.mc">SHOPSELECT</a></li>
-					<li><a href="shop_regist.mc">�Խñ۵��</a></li>
+					<li><a href="shop_list.mc">게시글보기</a></li>
+					<li><a href="shop_regist.mc">게시글등록</a></li>
 				</ul>
 			</c:otherwise>
 		</c:choose>
-
-
 	</header>
-	<section>
+	
+	<section id="cp">
 		<c:choose>
 			<c:when test="${centerpage==null }">
 				<jsp:include page="center.jsp"></jsp:include>

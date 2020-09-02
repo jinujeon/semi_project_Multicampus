@@ -33,6 +33,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM SHOP
 	</select>
 	
+	<update id="setcnt" parameterType="Integer">
+		UPDATE SHOP SET CNT=CNT+1 WHERE SHOPID=#{k}
+	</update>
 	
 	
 </mapper>

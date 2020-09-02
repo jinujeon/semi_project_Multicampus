@@ -32,6 +32,8 @@ public class ShopController {
 	//가게 등록 완료
 	@RequestMapping("/shop_registimpl.mc")
 	public ModelAndView shopaddimpl(ModelAndView mv, ShopVO shop) {
+		//전체 가게 리스트
+		ArrayList<ShopVO> list = null;
 		
 		//가게 이미지 등록
 		String imgname = shop.getMf().getOriginalFilename();
@@ -42,17 +44,53 @@ public class ShopController {
 		try {
 			biz.register(shop);
 			Util.saveFile(shop.getMf());
+			list = biz.get();
 		} catch (Exception e) {
 			mv.addObject("centerpage", "shop/registerfail");
 			e.printStackTrace();
 		}
 		System.out.println("shop객체 확인: "+shop);
 		mv.addObject("registershop", shop);
-		mv.addObject("centerpage", "shop/registerok");
+		mv.addObject("shoplist", list);
+		mv.addObject("centerpage", "shop/shop_list");
 		mv.setViewName("main");
 		
 		return mv;
 	}
+	
+	//가게 리스트 화면
+	@RequestMapping("/shop_list.mc")
+	public ModelAndView shopselect(ModelAndView mv) {
+		ArrayList<ShopVO> list = null;
+		try {
+			list = biz.get();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mv.addObject("shoplist", list);
+		mv.addObject("centerpage", "shop/shop_list");
+		mv.setViewName("main");
+		return mv;
+	}
+	
+	//가게 상세 페이지
+	@RequestMapping("/shop_detail.mc")
+	public ModelAndView shopdetail(ModelAndView mv, Integer shopid) {
+		
+		ShopVO dbshop = null;
+		
+		try {
+			dbshop = biz.get(shopid);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mv.addObject("shopdetail", dbshop);
+		mv.addObject("centerpage", "shop/shop_detail");
+		mv.setViewName("main");
+		return mv;
+	}
+	
 
 //    
 //    @RequestMapping("/insert.mc")

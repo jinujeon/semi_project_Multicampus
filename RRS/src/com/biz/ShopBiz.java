@@ -6,14 +6,14 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.dao.ShopDao;
 import com.frame.Biz;
-import com.frame.Dao;
 import com.vo.ShopVO;
 
 @Service("sbiz")
 public class ShopBiz implements Biz<Integer, ShopVO> {
 	@Resource(name="sdao")
-	Dao<Integer, ShopVO> dao;
+	ShopDao dao;
 
 	@Override
 	public void register(ShopVO v) throws Exception {
@@ -38,6 +38,7 @@ public class ShopBiz implements Biz<Integer, ShopVO> {
 
 	@Override
 	public ShopVO get(Integer k) throws Exception {
+		dao.setcnt(k);
 		return dao.select(k);
 	}
 
