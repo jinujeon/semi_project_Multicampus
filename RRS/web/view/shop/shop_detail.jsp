@@ -26,7 +26,7 @@
 
 <div>
 <table id="comment_table" border="1">
-        <tr>
+        <tr>COMMENTID, USERID, COMMENTCONTENTS, COMMENTDATE 
             <th>번호</th>
             <th>작성자</th>
             <th>내용</th>
@@ -40,7 +40,7 @@
 			<td>${c.commentid}</td>
 			<td>${c.userid}</td>
 			<td>${c.commentcontents}</td>
-			<td><img src="img/${c.commentImg }"></td>
+			<td><img src="img/${c.comment_img }"></td>
 			<td><fmt:formatDate value="${c.commentdate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 		</tr>
 	</c:forEach>
