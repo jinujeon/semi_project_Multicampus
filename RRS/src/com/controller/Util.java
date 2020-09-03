@@ -20,6 +20,22 @@ public class Util {
 		}
 		
 	}
+	//comment¿ë »çÁø
+	public static void saveCommentFile(MultipartFile mf) {
+		String dir = "C:\\Users\\ruldy\\git\\semi_project_Multicampus\\RRS\\web\\img\\comment\\";
+		byte [] data;
+		String imgname = mf.getOriginalFilename();
+		try {
+			data = mf.getBytes();
+			FileOutputStream fo = 
+					new FileOutputStream(dir+imgname);
+			fo.write(data);
+			fo.close();
+		}catch(Exception e) {
+			
+		}
+		
+	}
 	
 }
 

@@ -9,8 +9,13 @@
 		width:300px;
 		height:300px;
 	}
+	#comment_table > img{
+		width:100px;
+		height:100px;
+	}
 </style>
     
+<!-- shop 화면 div -->
 <div>
 <div id="center">
 	<h1>${shopdetail.shopname }</h1>
@@ -19,14 +24,13 @@
 	<h2>${shopdetail.shopphonenumber }</h2>
 	<h2>${shopdetail.shopdate }</h2>
 	<h2>조회수 : ${shopdetail.cnt }</h2>
-	
-	<h3><a href="shopdelete.mc?id=${shopdetail.shopid }">DELETE</a></h3>
-	<h3><a href="shopupdate.mc?id=${shopdetail.shopid }">UPDATE</a></h3>
 </div>
 
+<!-- 댓글리스트 div -->
 <div>
+<h2>댓글</h2>
 <table id="comment_table" border="1">
-        <tr>COMMENTID, USERID, COMMENTCONTENTS, COMMENTDATE 
+        <tr>
             <th>번호</th>
             <th>작성자</th>
             <th>내용</th>
@@ -40,20 +44,35 @@
 			<td>${c.commentid}</td>
 			<td>${c.userid}</td>
 			<td>${c.commentcontents}</td>
-			<td><img src="img/${c.comment_img }"></td>
+			<td><img src="img/comment/${c.commentImg }"></td>
 			<td><fmt:formatDate value="${c.commentdate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 		</tr>
 	</c:forEach>
 </table>
 </div>
 
-<%-- <div style="width:650px; text-align: center;">
+<!-- 댓글등록 div (로그인 한 회원에게만 댓글 작성폼이 보이게 처리)-->
+<div style="width:650px; text-align: center;">
         <br>
         <!-- **로그인 한 회원에게만 댓글 작성폼이 보이게 처리 -->
-        <c:if test="${sessionScope.userId != null}">    
-        <textarea rows="5" cols="80" id="replytext" placeholder="댓글을 작성해주세요"></textarea>
-        <br>
-        <button type="button" id="btnReply">댓글 작성</button>
-        </c:if>
-</div> --%>
+        <%-- <c:if test="${sessionScope.userId != null}"> --%>  
+          
+    <h3>댓글작성</h3>
+    <form enctype="multipart/form-data" name="bdto" method="post" action="shop_commentimpl.mc">
+    	<input type="hidden" name="userid" value="ID1000"> 
+        <input type="hidden" name="shopid" value="${shopdetail.shopid }">
+        <div>내용<textarea name="commentcontents" id="commentcontents" rows="4" cols="80" placeholder="댓글 입력"></textarea></div>
+        <div>사진<input type="file" name="mf"></div>
+        <input type="submit" value="확인">
+    </form>
+        <%-- </c:if> --%>
+</div> 
+
+<!-- 게시글 수정 삭제 -->
+<div>
+	<!-- 게시글 수정 삭제 div (게시글 작성회원에게만 수정삭제폼이 보이게 처리)-->
+	<h3><a href="shopdelete.mc?id=${shopdetail.shopid }">DELETE</a></h3>
+	<h3><a href="shopupdate.mc?id=${shopdetail.shopid }">UPDATE</a></h3>
+</div>
+
 </div>

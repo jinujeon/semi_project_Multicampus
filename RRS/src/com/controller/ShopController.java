@@ -57,7 +57,7 @@ public class ShopController {
 			mv.addObject("centerpage", "shop/registerfail");
 			e.printStackTrace();
 		}
-		System.out.println("shop객체 확인: "+shop);
+
 		mv.addObject("registershop", shop);
 		mv.addObject("shoplist", list);
 		mv.addObject("centerpage", "shop/shop_list");
@@ -105,6 +105,25 @@ public class ShopController {
 		return mv;
 	}
 	
+	//가게 댓글 등록 완료
+	@RequestMapping("/shop_commentimpl.mc")
+	public String shop_commentimpl(Shop_commentVO shop_comment) {
+		
+		//가게 이미지 등록
+		String imgname = shop_comment.getMf().getOriginalFilename();
+		shop_comment.setCommentImg(imgname);
+
+		try {
+			cbiz.register(shop_comment);
+			Util.saveCommentFile(shop_comment.getMf());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:shop_detail.mc?shopid="+shop_comment.getShopid();
+	}
+	
+
 
 //    
 //    @RequestMapping("/insert.mc")
