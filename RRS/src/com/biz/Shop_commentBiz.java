@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.dao.Shop_commentDao;
 import com.frame.Biz;
+import com.frame.Find;
 import com.vo.Shop_commentVO;
 
 @Service("cbiz")
-public class Shop_commentBiz implements Biz<Integer, Shop_commentVO> {
+public class Shop_commentBiz implements Biz<Integer, Shop_commentVO>, Find<Integer, Shop_commentVO> {
 	@Resource(name="cdao")
 	Shop_commentDao dao;
 
@@ -45,5 +46,12 @@ public class Shop_commentBiz implements Biz<Integer, Shop_commentVO> {
 	public ArrayList<Shop_commentVO> get() throws Exception {
 		return dao.selectall();
 	}
+	
+	@Override
+	public ArrayList<Shop_commentVO> comment(Integer k) throws Exception{
+		return dao.comment(k);
+	}
+	
+	
 
 }

@@ -13,6 +13,7 @@ import com.vo.ShopVO;
 
 @Service("bbiz")
 public class BoardBiz implements Biz<Integer, BoardVO> {
+	
 	@Resource(name="bdao")
 	BoardDao dao;
 

@@ -26,7 +26,7 @@ public class MainController {
 			mv.setViewName("main");
 			return mv;
 		}
-//
+
 //		@RequestMapping("/main.mc")
 //		public ModelAndView list(ModelAndView mv) {
 //			ArrayList<BoardVO> list= null;

@@ -9,14 +9,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.frame.Biz;
-import com.vo.BoardVO;
+import com.frame.Find;
 import com.vo.ShopVO;
+import com.vo.Shop_commentVO;
 
 @Controller
 public class ShopController {
 	
 	@Resource(name="sbiz")
-	Biz<Integer, ShopVO> biz;
+	Biz<Integer, ShopVO> sbiz;
+	
+	@Resource(name="cbiz")
+	Biz<Integer, Shop_commentVO> cbiz;
+	
+	//댓글 find하기 위해 인터페이스 추가 설정
+	@Resource(name="cbiz")
+	Find<Integer, Shop_commentVO> fcomment;
 	
 	//가게 등록 페이지로 이동
 	@RequestMapping("/shop_regist.mc")
@@ -42,9 +50,9 @@ public class ShopController {
 		shop.setImg3(imgname);
 		
 		try {
-			biz.register(shop);
+			sbiz.register(shop);
 			Util.saveFile(shop.getMf());
-			list = biz.get();
+			list = sbiz.get();
 		} catch (Exception e) {
 			mv.addObject("centerpage", "shop/registerfail");
 			e.printStackTrace();
@@ -63,7 +71,7 @@ public class ShopController {
 	public ModelAndView shopselect(ModelAndView mv) {
 		ArrayList<ShopVO> list = null;
 		try {
-			list = biz.get();
+			list = sbiz.get();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -77,15 +85,21 @@ public class ShopController {
 	@RequestMapping("/shop_detail.mc")
 	public ModelAndView shopdetail(ModelAndView mv, Integer shopid) {
 		
+		//게시판 정보 & 댓글정보
 		ShopVO dbshop = null;
+		ArrayList<Shop_commentVO> shop_comment = null;
 		
 		try {
-			dbshop = biz.get(shopid);
+			dbshop = sbiz.get(shopid);
+			shop_comment = fcomment.comment(shopid);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//게시판 정보 & 댓글정보 넘겨주기
 		mv.addObject("shopdetail", dbshop);
+		mv.addObject("shop_comment", shop_comment);
 		mv.addObject("centerpage", "shop/shop_detail");
 		mv.setViewName("main");
 		return mv;

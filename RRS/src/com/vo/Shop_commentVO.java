@@ -2,22 +2,39 @@ package com.vo;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Shop_commentVO {
 	private int commentid;
 	private String userid;
 	private int shopid;
 	private String commentcontents;
 	private Date commentdate;
+	private String commentImg;
+	MultipartFile mf;
 	public Shop_commentVO() {
 		super();
 	}
-	public Shop_commentVO(int commentid, String userid, int shopid, String commentcontents, Date commentdate) {
+	public Shop_commentVO(int commentid, String userid, int shopid, String commentcontents, Date commentdate,
+			String commentImg, MultipartFile mf) {
 		super();
 		this.commentid = commentid;
 		this.userid = userid;
 		this.shopid = shopid;
 		this.commentcontents = commentcontents;
 		this.commentdate = commentdate;
+		this.commentImg = commentImg;
+		this.mf = mf;
+	}
+	public Shop_commentVO(int commentid, String userid, int shopid, String commentcontents, String commentImg, 
+			MultipartFile mf) {
+		super();
+		this.commentid = commentid;
+		this.userid = userid;
+		this.shopid = shopid;
+		this.commentcontents = commentcontents;
+		this.commentImg = commentImg;
+		this.mf = mf;
 	}
 	public Shop_commentVO(int commentid, String userid, int shopid, String commentcontents) {
 		super();
@@ -60,6 +77,18 @@ public class Shop_commentVO {
 	}
 	public void setCommentdate(Date commentdate) {
 		this.commentdate = commentdate;
+	}
+	public String getCommentImg() {
+		return commentImg;
+	}
+	public void setCommentImg(String commentImg) {
+		this.commentImg = commentImg;
+	}
+	public MultipartFile getMf() {
+		return mf;
+	}
+	public void setMf(MultipartFile mf) {
+		this.mf = mf;
 	}
 	@Override
 	public String toString() {
