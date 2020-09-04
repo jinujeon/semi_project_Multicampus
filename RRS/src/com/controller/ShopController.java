@@ -3,9 +3,11 @@ package com.controller;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.frame.Biz;
@@ -97,7 +99,7 @@ public class ShopController {
 		try {
 			dbshop = sbiz.get(shopid);
 			shop_comment = fcomment.comment(shopid);
-			
+			shoprecommend = rbiz.get(shopid);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,6 +108,7 @@ public class ShopController {
 		//게시판 정보 & 댓글정보 넘겨주기
 		mv.addObject("shopdetail", dbshop);
 		mv.addObject("shop_comment", shop_comment);
+		mv.addObject("shoprecommend", shoprecommend);
 		mv.addObject("centerpage", "shop/shop_detail");
 		mv.setViewName("main");
 		return mv;
@@ -127,6 +130,29 @@ public class ShopController {
 		}
 
 		return "redirect:shop_detail.mc?shopid="+shop_comment.getShopid();
+	}
+	
+	//가게 추천 완료
+	@RequestMapping("/shop_recommendimpl.mc")
+	public String shop_recommendimpl(HttpServletRequest request) {
+		
+		//ajax통신으로 받아온 데이터 정리
+		int shopid = Integer.parseInt(request.getParameter("shopid"));
+		String userid = request.getParameter("userid");
+		boolean up = Boolean.valueOf(request.getParameter("up")).booleanValue();
+		boolean down = Boolean.valueOf(request.getParameter("down")).booleanValue();
+		//정리한 데이터 객체이 삽입
+		Shop_recommendVO recommend = new Shop_recommendVO(shopid, userid, up, down);
+		
+		try {
+			rbiz.register(recommend);//DB에 저장
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:shop_detail.mc?shopid="+shopid;
+				
+				//"redirect:shop_detail.mc?shopid="+shop_recommend.getShopid();
 	}
 	
 

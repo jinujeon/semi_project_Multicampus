@@ -12,8 +12,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- 댓글 입력 -->
 	<insert id="insert" parameterType="shop_recommend">
-		INSERT INTO SHOP_COMMENT VALUES 
-		(C_SEQ.NEXTVAL,#{userid},#{shopid},#{commentcontents},SYSDATE,#{commentImg})
+		INSERT INTO SHOP_RECOMMEND VALUES 
+		(#{shopid},#{userid},#{up},#{down})
 	</insert>
 	
 	<update id="update" parameterType="shop_recommend">
@@ -27,8 +27,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<!-- 해당 게시글 추천 수(UP) -->
 	<select id="select" parameterType="Integer"
 		resultType="shop_recommend">
-		SELECT SHOPID, SUM(UP) AS UP, SUM(DOWN) AS DOWN FROM SHOP_RECOMMEND
-		WHERE SHOPID = #{k} GROUP BY SHOPID;
+		SELECT SHOPID, SUM(UP) AS UPCOUNT, SUM(DOWN) AS DOWNCOUNT FROM SHOP_RECOMMEND
+		WHERE SHOPID = #{k} GROUP BY SHOPID
 	</select>
 	
 	<!-- 해당 게시글 댓글목록 -->

@@ -3,18 +3,91 @@
     <!-- fmt를 사용하기위한 태그 라이브러리 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 <style>
-	#center > img{
-		width:300px;
-		height:300px;
+	#center>img {
+		width: 300px;
+		height: 300px;
 	}
-	#comment_table > img{
-		width:100px;
-		height:100px;
+	
+	#comment_table>img {
+		width: 100px;
+		height: 100px;
+	}
+	
+	#btnUp {
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+		margin-right: -4px;
+	}
+	
+	#btnDown {
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+		margin-left: -3px;
+	}
+	
+	#btnrecommend button {
+		border: 1px solid skyblue;
+		background-color: rgba(0, 0, 0, 0);
+		color: skyblue;
+		padding: 5px;
+	}
+	
+	#btnrecommend button:hover {
+		color: white;
+		background-color: skyblue;
 	}
 </style>
-    
+
+<script>
+/* ----------------------------------------------------------------------------------------- */
+/*                                      추천 시스템                                                                               */
+/* ----------------------------------------------------------------------------------------- */
+function recommendUp() {
+	var updata = {"up":"true", "shopid":"${shopdetail.shopid}", "userid":"ID0001", "down":"false"}
+	$.ajax({
+		url: 'shop_recommendimpl.mc',
+		type: "POST",
+		data: updata,
+		success : function() {
+		},
+		error : function() {
+		}
+	});
+};
+
+function recommendDown() {
+	var downdata = {"up":"false", "shopid":"${shopdetail.shopid}", "userid":"ID0001", "down":"true"}
+	$.ajax({
+		url: 'shop_recommendimpl.mc',
+		type: "POST",
+		data: downdata,
+		success : function() {
+		},
+		error : function() {
+		}
+	});
+};
+
+
+$(document).ready(function() {
+	
+	//추천 기능
+	$('#btnrecommend > #btnUp').click(function() {
+		recommendUp(); //추천 버튼 클릭 시 추천ajax
+		alert("추천하셨습니다.")
+	});
+	$('#btnrecommend > #btnDown').click(function() {
+		recommendDown(); //비추 버튼 클릭 시 비추천ajax
+		alert("비추하셨습니다.")
+	});
+});
+
+</script>
+
 <!-- shop 화면 div -->
 <div>
 <div id="center">
@@ -24,9 +97,12 @@
 	<h2>${shopdetail.shopphonenumber }</h2>
 	<h2>${shopdetail.shopdate }</h2>
 	<h2>조회수 : ${shopdetail.cnt }</h2>
-	<h2>추천 : ${shopdetail.cnt }</h2>
-	<h2>비추 : ${shopdetail.cnt }</h2>
+	<div id="btnrecommend">
+		<button id="btnUp">추천 : ${shoprecommend.upcount }</button>
+		<button id="btnDown">비추 : ${shoprecommend.downcount }</button>
+	</div>
 </div>
+<p class="gap20"></p>
 
 <!-- 댓글리스트 div -->
 <div>
