@@ -89,7 +89,7 @@ public class ShopController {
 	@RequestMapping("/shop_detail.mc")
 	public ModelAndView shopdetail(ModelAndView mv, Integer shopid) {
 		
-		//게시판 정보 & 댓글정보
+		//게시판 정보 & 댓글정보 & 추천 수
 		ShopVO dbshop = null;
 		Shop_recommendVO shoprecommend = null;
 		ArrayList<Shop_commentVO> shop_comment = null;
@@ -97,6 +97,7 @@ public class ShopController {
 		try {
 			dbshop = sbiz.get(shopid);
 			shop_comment = fcomment.comment(shopid);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
