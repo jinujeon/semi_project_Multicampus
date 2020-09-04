@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.Shop_recommendDao">
+	
+<!-- 	<resultMap type="user" id="um">
+		<result property="identification" column="id"/>
+		<result property="password" column="pwd"/>
+		<result property="username" column="name"/>
+	</resultMap> -->
+	
+	<!-- 댓글 입력 -->
+	<insert id="insert" parameterType="shop_recommend">
+		INSERT INTO SHOP_COMMENT VALUES 
+		(C_SEQ.NEXTVAL,#{userid},#{shopid},#{commentcontents},SYSDATE,#{commentImg})
+	</insert>
+	
+	<update id="update" parameterType="shop_recommend">
+		UPDATE SHOP_COMMENT SET SHOPID=#{shopname}, SHOPPHONENUMBER=#{shopphonenumber}, ADDRESS=#{address}, LOCATE=#{locate}, INFO=#{info}, IMG1=#{img1}, IMG2=#{img2}, IMG3=#{img3} WHERE SHOPID=#{shopid}
+	</update>
+	
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM SHOP_COMMENT WHERE COMMENTID=#{k}
+	</delete>
+
+	<!-- 해당 게시글 추천 수(UP) -->
+	<select id="select" parameterType="Integer"
+		resultType="shop_recommend">
+		SELECT SHOPID, SUM(UP) AS UP, SUM(DOWN) AS DOWN FROM SHOP_RECOMMEND
+		WHERE SHOPID = #{k} GROUP BY SHOPID;
+	</select>
+	
+	<!-- 해당 게시글 댓글목록 -->
+	<select id="selectall" resultType="shop_recommend">
+		SELECT C.COMMENTID, C.USERID, C.CONNENTCONTENTS FROM SHOP_COMMENT C, SHOP S 
+		WHERE C.SHOPID = S.SHOPID ORDER BY COMMENTDATE
+	</select>
+	
+	
+	
+</mapper>

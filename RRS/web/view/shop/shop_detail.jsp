@@ -24,6 +24,8 @@
 	<h2>${shopdetail.shopphonenumber }</h2>
 	<h2>${shopdetail.shopdate }</h2>
 	<h2>조회수 : ${shopdetail.cnt }</h2>
+	<h2>추천 : ${shopdetail.cnt }</h2>
+	<h2>비추 : ${shopdetail.cnt }</h2>
 </div>
 
 <!-- 댓글리스트 div -->
@@ -57,9 +59,6 @@
         <!-- **로그인 한 회원에게만 댓글 작성폼이 보이게 처리 -->
         <c:choose>
 			<c:when test="${loginuser.userid == null}">
-
-			</c:when>
-			<c:otherwise>
 				<h3>댓글작성</h3>
 				<form enctype="multipart/form-data" name="bdto" method="post" action="shop_commentimpl.mc">
 					<input type="hidden" name="userid" value="ID1000"> 
@@ -68,6 +67,9 @@
 					<div>사진<input type="file" name="mf"></div>
 					<input type="submit" value="확인">
 				</form>
+			</c:when>
+			<c:otherwise>
+
 			</c:otherwise>
 		</c:choose>
 </div> 

@@ -12,6 +12,7 @@ import com.frame.Biz;
 import com.frame.Find;
 import com.vo.ShopVO;
 import com.vo.Shop_commentVO;
+import com.vo.Shop_recommendVO;
 
 @Controller
 public class ShopController {
@@ -25,6 +26,9 @@ public class ShopController {
 	//댓글 find하기 위해 인터페이스 추가 설정
 	@Resource(name="cbiz")
 	Find<Integer, Shop_commentVO> fcomment;
+	
+	@Resource(name="rbiz")
+	Biz<Integer, Shop_recommendVO> rbiz;
 	
 	//가게 등록 페이지로 이동
 	@RequestMapping("/shop_regist.mc")
@@ -87,6 +91,7 @@ public class ShopController {
 		
 		//게시판 정보 & 댓글정보
 		ShopVO dbshop = null;
+		Shop_recommendVO shoprecommend = null;
 		ArrayList<Shop_commentVO> shop_comment = null;
 		
 		try {
