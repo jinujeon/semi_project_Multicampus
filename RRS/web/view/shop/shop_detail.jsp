@@ -55,17 +55,21 @@
 <div style="width:650px; text-align: center;">
         <br>
         <!-- **로그인 한 회원에게만 댓글 작성폼이 보이게 처리 -->
-        <%-- <c:if test="${sessionScope.userId != null}"> --%>  
-          
-    <h3>댓글작성</h3>
-    <form enctype="multipart/form-data" name="bdto" method="post" action="shop_commentimpl.mc">
-    	<input type="hidden" name="userid" value="ID1000"> 
-        <input type="hidden" name="shopid" value="${shopdetail.shopid }">
-        <div>내용<textarea name="commentcontents" id="commentcontents" rows="4" cols="80" placeholder="댓글 입력"></textarea></div>
-        <div>사진<input type="file" name="mf"></div>
-        <input type="submit" value="확인">
-    </form>
-        <%-- </c:if> --%>
+        <c:choose>
+			<c:when test="${loginuser.userid == null}">
+
+			</c:when>
+			<c:otherwise>
+				<h3>댓글작성</h3>
+				<form enctype="multipart/form-data" name="bdto" method="post" action="shop_commentimpl.mc">
+					<input type="hidden" name="userid" value="ID1000"> 
+					<input type="hidden" name="shopid" value="${shopdetail.shopid }">
+					<div>내용	<textarea name="commentcontents" id="commentcontents" rows="4" cols="80" placeholder="댓글 입력"></textarea></div>
+					<div>사진<input type="file" name="mf"></div>
+					<input type="submit" value="확인">
+				</form>
+			</c:otherwise>
+		</c:choose>
 </div> 
 
 <!-- 게시글 수정 삭제 -->
