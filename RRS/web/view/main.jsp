@@ -119,7 +119,7 @@ $(document).ready(function() {
 			</c:when>
 			<c:otherwise>
 				<ul>
-					<li>${loginuser.userid }님</li>
+					<li>${loginuser.nickname }님</li>
 					<li><a href="main.mc">MAIN</a></li>
 					<li><a href="logout.mc">LOGOUT</a></li>
 					<li><form action="search.mc" method="post">

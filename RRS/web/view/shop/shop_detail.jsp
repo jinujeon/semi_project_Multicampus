@@ -135,6 +135,9 @@ $(document).ready(function() {
         <!-- **로그인 한 회원에게만 댓글 작성폼이 보이게 처리 -->
         <c:choose>
 			<c:when test="${loginuser.userid == null}">
+
+			</c:when>
+			<c:otherwise>
 				<h3>댓글작성</h3>
 				<form enctype="multipart/form-data" name="bdto" method="post" action="shop_commentimpl.mc">
 					<input type="hidden" name="userid" value="ID1000"> 
@@ -143,18 +146,24 @@ $(document).ready(function() {
 					<div>사진<input type="file" name="mf"></div>
 					<input type="submit" value="확인">
 				</form>
-			</c:when>
-			<c:otherwise>
-
 			</c:otherwise>
 		</c:choose>
 </div> 
 
 <!-- 게시글 수정 삭제 -->
 <div>
+	<br>
 	<!-- 게시글 수정 삭제 div (게시글 작성회원에게만 수정삭제폼이 보이게 처리)-->
-	<h3><a href="shopdelete.mc?id=${shopdetail.shopid }">DELETE</a></h3>
-	<h3><a href="shopupdate.mc?id=${shopdetail.shopid }">UPDATE</a></h3>
+	<c:choose>
+		<c:when test="${loginuser.userid  == shopdetail.userid}">
+			<h3><a href="shopdelete.mc?id=${shopdetail.shopid }">DELETE</a></h3>
+			<h3><a href="shopupdate.mc?id=${shopdetail.shopid }">UPDATE</a></h3>
+		</c:when>
+		<c:otherwise>
+		
+		</c:otherwise>
+	</c:choose>
+
 </div>
 
 </div>
