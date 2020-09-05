@@ -33,8 +33,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- 해당 게시글 댓글목록 -->
 	<select id="selectall" resultType="shop_recommend">
-		SELECT C.COMMENTID, C.USERID, C.CONNENTCONTENTS FROM SHOP_COMMENT C, SHOP S 
-		WHERE C.SHOPID = S.SHOPID ORDER BY COMMENTDATE
+		SELECT DISTINCT SHOPID FROM SHOP_RECOMMEND ORDER BY SHOPID
 	</select>
 	
 	

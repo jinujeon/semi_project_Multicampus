@@ -1,110 +1,207 @@
 package com.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.frame.Biz;
-import com.vo.BoardVO;
+import com.vo.MemberVO;
+import com.vo.ShopVO;
 
 
 @Controller
 public class MainController {
-	
-		@Resource(name="bbiz")
-		Biz<Integer, BoardVO> biz;
+
+	@Resource(name="mbiz")
+	Biz<String, MemberVO> mbiz;
+
+	@RequestMapping("/main.mc")
+	public ModelAndView main() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("main");
+		return mv;
+	}
+
+	//로그인 페이지로 이동
+	@RequestMapping("/login.mc")
+	public ModelAndView login() {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("centerpage", "login");
+		mv.setViewName("main");
+		return mv;
+	}
+
+	//로그인 실행
+	@RequestMapping("/loginimpl.mc")                 //alert 사용을 위해 HttpServletResponse response 추가
+	public ModelAndView loginimpl(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		@RequestMapping("/main.mc")
-		public ModelAndView main() {
-			ModelAndView mv = new ModelAndView();
-			mv.setViewName("main");
-			return mv;
+		ModelAndView mv = new ModelAndView();
+		String id = request.getParameter("id");
+		String pwd = request.getParameter("pwd");
+		MemberVO dbuser = null;
+		
+		try {
+			dbuser = mbiz.get(id);
+			if(dbuser.getUserpwd().equals(pwd)) {
+				HttpSession session = request.getSession();
+				session.setAttribute("loginuser", dbuser);
+				mv.addObject("centerpage", "first");
+			}else { //password 오류 시
+				mv.addObject("centerpage", "login");
+				//spring에서 alert를 하는 구문----------------------------------
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('로그인에 실패하였습니다'); </script>");
+				out.flush();
+				//---------------------------------------------------------
+			}
+		} catch (Exception e) {
+			mv.addObject("centerpage", "login");
+			//
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('로그인 오류입니다'); </script>");
+			out.flush();
+			//
+			e.printStackTrace();
+		}
+		mv.setViewName("main");
+		return mv;
+	}
+
+	@RequestMapping("/logout.mc")
+	public ModelAndView logout(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		HttpSession session = request.getSession();
+		if(session != null) {
+			session.invalidate();
+		}
+		mv.setViewName("main");
+		return mv;
+	}
+
+
+	@RequestMapping("/join.mc")
+	public ModelAndView useradd(ModelAndView mv) {
+		mv.addObject("centerpage", "member/join");
+		mv.setViewName("main");
+		return mv;
+	}
+
+	//회원가입 실행
+	@RequestMapping("/joinimpl.mc")
+	public ModelAndView useraddimpl(ModelAndView mv, MemberVO member,HttpServletResponse response) throws IOException {
+		
+		try {
+			mbiz.register(member);
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('회원가입 되었습니다'); </script>");
+			out.flush();
+			mv.addObject("centerpage", "first");
+		} catch (Exception e) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('회원가입 오류입니다'); </script>");
+			out.flush();
+			mv.addObject("centerpage", "member/join");
+			e.printStackTrace();
+		}
+		mv.setViewName("main");
+		return mv;
+	}
+
+
+	//========================날씨=============================
+
+	public String getRequest(String url, String parameter) {
+
+		try {
+			String param = "{\"param\":\"" + parameter + "\"} ";
+
+			// url를 인스턴스를 만든다.
+			URL uri = new URL(url);
+			// HttpURLConnection 인스턴스를 가져온다.
+			HttpURLConnection connection = (HttpURLConnection) uri.openConnection();
+			// Web Method는 Post 타입
+			connection.setRequestMethod("GET");
+
+			// 요청한다. 200이면 정상이다.
+			int code = connection.getResponseCode();
+			if (code == 200) {
+
+				// 응답 온 body 내용의 stream을 받는다.
+				try (BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+					String line;
+					StringBuffer buffer = new StringBuffer();
+					while ((line = input.readLine()) != null) {
+						buffer.append(line);
+					}
+
+					return buffer.toString();
+				}
+			}
+
+			return code + "";
+		} catch (Throwable e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+
+	@RequestMapping("/getweather.mc")
+	public void getweather(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyyMMdd");
+		SimpleDateFormat format2 = new SimpleDateFormat ( "HH00" );
+
+		Date time = new Date();
+
+		String timeDate = format1.format(time);
+		String timeHour = format2.format(time);
+		//현재시간으로 설정 시 값을 못받아오기 때문에 현재시간에서 1시간 전 시간으로 설정
+		int a = Integer.parseInt(timeHour);
+		if(a==100) {
+			timeHour="0000";
+		}else if( a==0) {
+			timeHour="2300";
+		}else if(a<1000) {
+			a = a-100;
+			timeHour = "0"+Integer.toString(a);
+		}else {
+			a = a-100;
+			timeHour = Integer.toString(a);
 		}
 
-//		@RequestMapping("/main.mc")
-//		public ModelAndView list(ModelAndView mv) {
-//			ArrayList<BoardVO> list= null;
-//			try {
-//				list = biz.get();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			mv.addObject("boardlist", list);
-//			mv.setViewName("main");
-//			return mv;
-//		}
-//		
-//	    @RequestMapping("/writer.mc")
-//	    public String writerpage() {
-//	        return "writer";
-//	    }
-//	    
-//	    @RequestMapping("/insert.mc")
-//	    public String insert(BoardVO board) {
-//			try {
-//				biz.register(board);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			return "redirect:main.mc";
-//
-//	    }
-//	    
-//		@RequestMapping("/read.mc")
-//		public ModelAndView read(ModelAndView mv, Integer bid) {
-//			BoardVO board = null;
-//			try {
-//				board = biz.get(bid);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			mv.addObject("data",board);
-//			mv.setViewName("read");
-//			return mv;
-//		}
-//		
-//		@RequestMapping("/update.mc")
-//		public ModelAndView update(ModelAndView mv, Integer bid) {
-//			BoardVO board = null;
-//			try {
-//				board = biz.get(bid);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			mv.addObject("datas",board);
-//			mv.setViewName("update");
-//			return mv;
-//		}
-//		
-//		@RequestMapping("/updateimpl.mc")
-//		public String updateimpl(BoardVO board) {
-//			try {
-//				biz.modify(board);
-//				System.out.println(board);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			return "redirect:main.mc";
-//		}
-//		
-//		@RequestMapping("/delete.mc")
-//	    public String delete(Integer bid) {
-//			try {
-//				biz.remove(bid);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			return "redirect:main.mc";
-//
-//	    }
+		String urlstr = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getUltraSrtNcst?serviceKey=GCKdLak3diVhCnTIjF1tEy7Jg4%2B%2BCZjtNKfXmQqAbkAYipPxWX%2Fv1mvxvUsDA6%2By9lyZDj%2FP0h%2FiCs36Mi46eg%3D%3D&pageNo=1&numOfRows=10&dataType=XML&base_date="+timeDate+"&base_time="+timeHour+"&nx=60&ny=127&";
+		String xmlstr = getRequest(urlstr,"");
+		response.setContentType("text/xml;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(xmlstr);
+
+	}
+
+
+
+
 }
 
 
-		
+
 

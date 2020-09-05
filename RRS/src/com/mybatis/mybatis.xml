@@ -5,12 +5,14 @@ PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.vo.ShopVO" alias="shop"/>
+		<typeAlias type="com.vo.MemberVO" alias="member"/>
 		<typeAlias type="com.vo.Shop_commentVO" alias="shop_comment"/>
 		<typeAlias type="com.vo.Shop_recommendVO" alias="shop_recommend"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="com/mybatis/shopmapper.xml"/>
+		<mapper resource="com/mybatis/membermapper.xml"/>
 		<mapper resource="com/mybatis/shop_commentmapper.xml"/>
 		<mapper resource="com/mybatis/shop_recommendmapper.xml"/>
 	</mappers>

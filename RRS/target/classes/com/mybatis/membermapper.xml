@@ -4,64 +4,27 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.MemberDao">
 	
-<!-- 	<resultMap type="user" id="um">
-		<result property="identification" column="id"/>
-		<result property="password" column="pwd"/>
-		<result property="username" column="name"/>
-	</resultMap> -->
-	
 	
 	<insert id="insert" parameterType="member">
-		INSERT INTO MEMBER VALUES (#{userid},#{userpwd},#{username},#{userphonenumber},#{nickname},#{admincheck})
+		INSERT INTO MEMBER VALUES (#{userid},#{userpwd},#{username},#{userphonenumber},#{nickname},0)
 	</insert>
 	
 	<update id="update" parameterType="member">
-		UPDATE MEMBER SET PWD=#{pwd}, NAME=#{name} WHERE ID=#{userid}
+		UPDATE MEMBER SET USERPWD=#{userpwd},USERNAME=#{username},USERPHONENUMBER=#{userphonenumber},NICKNAME=#{nickname} WHERE USERID=#{userid}
 	</update>
 	
 	<delete id="delete" parameterType="String">
-		DELETE FROM MEMBER WHERE ID=#{k}
+		DELETE FROM MEMBER WHERE USERID=#{k}
 	</delete>
 	
 	<select id="select" parameterType="String" 
 	resultType="member">
-		SELECT * FROM MEMBER WHERE ID=#{k}
+		SELECT * FROM MEMBER WHERE USERID=#{k}
 	</select>
 	
 	<select id="selectall" resultType="member">
-		SELECT * FROM MEMBER 
+		SELECT * FROM MEMBER
 	</select>
-	
-<!-- 	<select id="search" parameterType="java.util.HashMap" 
-	resultType="contents">
-	<![CDATA[
-		SELECT * FROM CONTENTS 
-		WHERE CNT >= #{start}
-		AND CNT <= #{end}
-	]]>
-	</select> -->
 	
 	
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -4,8 +4,8 @@
 <div id="center">
 <h1>Login page</h1>
 <form action="loginimpl.mc" method="post">
-ID<input type="text" name="id" value="id01"><br>
-PWD<input type="password" name="pwd" value="pwd01"><br>
+ID<input type="text" name="id" value="ID1000"><br>
+PWD<input type="password" name="pwd" value="PWD1000"><br>
 <input type="submit" value="LOGIN">
 </form>
 </div>

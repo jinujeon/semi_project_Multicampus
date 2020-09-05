@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface Biz<K, V> {
-	@Transactional
+	@Transactional //트랙젝션 처리 @Transactional을 사용한다 -  실행이 이상하면 롤백한다
 	public void register(V v) throws Exception;
 	@Transactional
 	public void remove(K k) throws Exception;

@@ -61,7 +61,9 @@ public class Shop_recommendVO {
 	}
 	@Override
 	public String toString() {
-		return "ShoprecommendVO [shopid=" + shopid + ", userid=" + userid + ", up=" + up + ", down=" + down + "]";
+		return "Shop_recommendVO [shopid=" + shopid + ", userid=" + userid + ", up=" + up + ", down=" + down
+				+ ", upcount=" + upcount + ", downcount=" + downcount + "]";
 	}
+
 
 }
