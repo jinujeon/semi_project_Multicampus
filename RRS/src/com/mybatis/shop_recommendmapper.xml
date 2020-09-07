@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- 해당 게시글 댓글목록 -->
 	<select id="selectall" resultType="shop_recommend">
-		SELECT DISTINCT SHOPID FROM SHOP_RECOMMEND ORDER BY SHOPID
+		SELECT S.SHOPID, NVL(SUM(UP),0) AS UPCOUNT,NVL(SUM(DOWN),0) AS DOWNCOUNT FROM SHOP S, SHOP_RECOMMEND R WHERE S.SHOPID = R.SHOPID(+) GROUP BY S.SHOPID ORDER BY SHOPID
 	</select>
 	
 	

@@ -47,12 +47,14 @@
 /*                                      추천 시스템                                                                               */
 /* ----------------------------------------------------------------------------------------- */
 function recommendUp() {
-	var updata = {"up":"true", "shopid":"${shopdetail.shopid}", "userid":"ID0001", "down":"false"}
+	var updata = {"up":"true", "shopid":"${shopdetail.shopid}", "userid":"${loginuser.userid }", "down":"false"}
 	$.ajax({
 		url: 'shop_recommendimpl.mc',
 		type: "POST",
 		data: updata,
-		success : function() {
+		success : function(d) {
+			alert(d);
+			window.location.reload();
 		},
 		error : function() {
 		}
@@ -60,12 +62,14 @@ function recommendUp() {
 };
 
 function recommendDown() {
-	var downdata = {"up":"false", "shopid":"${shopdetail.shopid}", "userid":"ID0001", "down":"true"}
+	var downdata = {"up":"false", "shopid":"${shopdetail.shopid}", "userid":"${loginuser.userid }", "down":"true"}
 	$.ajax({
 		url: 'shop_recommendimpl.mc',
 		type: "POST",
 		data: downdata,
-		success : function() {
+		success : function(d) {
+			alert(d);
+			window.location.reload();
 		},
 		error : function() {
 		}
@@ -78,11 +82,9 @@ $(document).ready(function() {
 	//추천 기능
 	$('#btnrecommend > #btnUp').click(function() {
 		recommendUp(); //추천 버튼 클릭 시 추천ajax
-		alert("추천하셨습니다.")
 	});
 	$('#btnrecommend > #btnDown').click(function() {
 		recommendDown(); //비추 버튼 클릭 시 비추천ajax
-		alert("비추하셨습니다.")
 	});
 });
 

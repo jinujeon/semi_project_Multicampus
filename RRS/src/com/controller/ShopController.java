@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -49,9 +50,9 @@ public class ShopController {
 
 	//가게 등록 완료
 	@RequestMapping("/shop_registimpl.mc")
-	public ModelAndView shopaddimpl(ModelAndView mv, ShopVO shop) {
-		//전체 가게 리스트
-		ArrayList<ShopVO> list = null;
+	public ModelAndView shopaddimpl(ModelAndView mv, HttpServletResponse response, ShopVO shop) {
+
+		ShopVO list = shop;
 
 		//가게 이미지 등록
 		String imgname = shop.getMf().getOriginalFilename();
@@ -62,14 +63,11 @@ public class ShopController {
 		try {
 			sbiz.register(shop);
 			Util.saveFile(shop.getMf());
-			list = sbiz.get();
 		} catch (Exception e) {
 			mv.addObject("centerpage", "shop/registerfail");
 			e.printStackTrace();
 		}
-
-		mv.addObject("registershop", shop);
-		mv.addObject("shoplist", list);
+		mv.addObject("registshop", shop);
 		mv.addObject("centerpage", "shop/shop_list");
 		mv.setViewName("main");
 
@@ -138,7 +136,7 @@ public class ShopController {
 
 	//가게 추천 완료
 	@RequestMapping("/shop_recommendimpl.mc")
-	public String shop_recommendimpl(HttpServletRequest request) {
+	public void shop_recommendimpl(HttpServletRequest request, HttpServletResponse response) throws IOException{
 
 		//ajax통신으로 받아온 데이터 정리
 		int shopid = Integer.parseInt(request.getParameter("shopid"));
@@ -148,19 +146,29 @@ public class ShopController {
 		//정리한 데이터 객체이 삽입
 		Shop_recommendVO recommend = new Shop_recommendVO(shopid, userid, up, down);
 
+		//ajax에 데이터 보내기 위한 설정
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
 		try {
-			rbiz.register(recommend);//DB에 저장
+			rbiz.register(recommend);//DB에 저장 후 alert에 띄울 string값 보내기(ajax)
+			if(up) out.println("추천하셨습니다.");
+			else out.println("비추천하셨습니다.");
+			out.flush();
 		} catch (Exception e) {
-			e.printStackTrace();
+			//저장 실패 시 alert에 띄울 string값 보내기(ajax)
+			if(up) out.println("추천에 실패하셨습니다.");
+			else out.println("비추천에 실패하셨습니다.");
+			out.flush();
 		}
 
-		return "redirect:shop_detail.mc?shopid="+shopid;
+		out.close();
 
 	}
 
 	//가게 위치 검색(지도 & 가게리스트 보여주기)
 	@RequestMapping("/search.mc")
-	public ModelAndView search(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView search(ModelAndView mv, HttpServletRequest request, HttpServletResponse response, String sel) {
 
 		//검색내용 & 가게정보 받아오기
 		String loc = request.getParameter("loc");
@@ -184,6 +192,7 @@ public class ShopController {
 		return mv;
 	}
 
+	
 	//가게 위치 위도경도(가게 정보) 받아오기
 	@RequestMapping("/getshopdata.mc")
 	@ResponseBody
@@ -200,10 +209,16 @@ public class ShopController {
 
 		for(ShopVO s:slist) {
 			JSONObject data = new JSONObject();
+			data.put("shopid", s.getShopid());
 			data.put("shopname", s.getShopname());
 			data.put("lat", (Math.round(s.getLat()*1000000)/1000000.0));
 			data.put("lon", (Math.round(s.getLon()*1000000)/1000000.0));
 			data.put("shopphonenumber", s.getShopphonenumber());
+			data.put("userid", s.getUserid());
+			data.put("cnt", s.getCnt());
+			data.put("img1", s.getImg1());
+			data.put("img2", s.getImg2());
+			data.put("img3", s.getImg3());
 			ja.add(data);
 		}
 
@@ -224,7 +239,7 @@ public class ShopController {
 		ArrayList<Shop_recommendVO> rlist = new ArrayList<>();
 		
 		try {
-			rlist = rbiz.get();	//shopid만 받아오기
+			rlist = rbiz.get();	//
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
@@ -232,19 +247,10 @@ public class ShopController {
 		JSONArray ja2 = new JSONArray();
 
 		for(Shop_recommendVO r:rlist) {
-			Shop_recommendVO shoprecommend = null;
 			JSONObject data = new JSONObject();
 			data.put("shopid", r.getShopid());
-			try {
-				shoprecommend = rbiz.get(r.getShopid());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}	
-			
-			System.out.println("객체테스트 : " + shoprecommend);
-			//추천값 총합, 비추천값 총합 json데이터에 넣기
-			data.put("up", shoprecommend.getUpcount());
-			data.put("down", shoprecommend.getDowncount());
+			data.put("up", r.getUpcount());
+			data.put("down", r.getDowncount());
 			ja2.add(data);
 		}
 

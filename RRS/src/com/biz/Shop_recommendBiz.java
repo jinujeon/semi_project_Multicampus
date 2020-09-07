@@ -17,7 +17,16 @@ public class Shop_recommendBiz implements Biz<Integer, Shop_recommendVO> {
 
 	@Override
 	public void register(Shop_recommendVO v) throws Exception {
-		dao.insert(v);
+		int result = 0;
+		try {
+			result = dao.insert(v);
+		}catch(Exception e) {
+			throw new Exception();
+		}
+		
+		if(result == 0) {	//쿼리문 작동 실패시 0
+			System.out.println("추천시스템 db작동 실패");
+		}
 	}
 
 	@Override
