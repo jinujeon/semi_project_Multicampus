@@ -12,5 +12,4 @@ import com.vo.Shop_commentVO;
 public interface ShopDao extends Dao<Integer, ShopVO> , Setxy<Integer, ShopVO>{
 	public void setcnt(Integer k) throws Exception;
 
-
 }

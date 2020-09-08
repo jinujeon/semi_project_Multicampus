@@ -51,6 +51,11 @@ public class ShopBiz implements Biz<Integer, ShopVO>, Setxy<Integer, ShopVO> {
 	@Override
 	public void setxy(ShopVO v) throws Exception {
 		dao.setxy(v);
+	}
+
+	@Override
+	public ArrayList<ShopVO> rankshop() throws Exception {
+		return dao.rankshop();
 	}	
 
 }

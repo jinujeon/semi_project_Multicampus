@@ -41,6 +41,11 @@ public class ShopController {
 	//setxy하기 위해 인터페이스 추가 설정
 	@Resource(name="sbiz")
 	Setxy<Integer, ShopVO> setxybiz;
+	
+	//rankshop하기 위해 인터페이스 추가 설정
+	@Resource(name="sbiz")
+	Setxy<Integer, ShopVO> rankbiz;
+
 
 	//가게 등록 페이지로 이동
 	@RequestMapping("/shop_regist.mc")
@@ -48,7 +53,7 @@ public class ShopController {
 
 		//mv.addObject("dbuser", member); //아이디 자동 입력을 위해 멤버객체 등록 
 		mv.addObject("centerpage", "shop/shop_regist");	//가게 등록jsp
-		mv.setViewName("shop/shop_regist");
+		mv.setViewName("main");
 		return mv;
 
 	}
@@ -354,6 +359,41 @@ public class ShopController {
 		out.close();
 
 	}
+	
+	//가게 순위 보내기
+	@RequestMapping("/getshoprank.mc")
+	@ResponseBody
+	public void getshoprank(HttpServletResponse res) throws IOException{
+		
+		ArrayList<ShopVO> list = new ArrayList<>();
+
+		try {
+			list = rankbiz.rankshop();			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		JSONArray ja = new JSONArray();
+
+		for(ShopVO s:list) {
+			JSONObject data = new JSONObject();
+			data.put("shopid", s.getShopid());
+			data.put("shopname", s.getShopname());
+			data.put("img1", s.getImg1());
+			data.put("sumup", s.getSumup());
+			ja.add(data);
+		}
+		
+		res.setCharacterEncoding("UTF-8");
+		res.setContentType("application/json");
+		PrintWriter out = res.getWriter();
+
+		out.print(ja.toJSONString());
+		out.close();
+	}
+
+
+
 
 
 }

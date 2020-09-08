@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+
 <style>
 /*general css*/
 * {
@@ -36,29 +37,6 @@ body {
    clear: both;
 }
 
-input[type=text] {
-   width: 80%;
-   padding: 10px 10px;
-   margin: 8px 0;
-   display: inline-block;
-   border: 1px solid #ccc;
-   border-radius: 4px;
-   box-sizing: border-box;
-   font-weight: BOLD;
-   font-size: 20px;
-}
-
-input[type=submit] {
-   width: 9%;
-   padding: 10px 10px;
-   margin: 8px 0;
-   display: inline-block;
-   border: 1px solid #ccc;
-   border-radius: 4px;
-   box-sizing: border-box;
-   font-weight: BOLD;
-}
-
 /*header css*/
 header {
    width: 100%;
@@ -68,47 +46,45 @@ header {
 }
 
 .mainname {
-   font-size:1.5em;  
-   color: green;
+   font-size:2em;  
+   font-weight:600;
+   color: #00FFFF;
 }
 
 /*nav css start*/
 nav {
    width: 100%;
    height: 50px;
-   border-bottom: 3px solid #cbcbcb;
+   background-color:#d8d8d8;
 }
-
-nav.leftMenu {
-   float: left;
-   height: 80%;
+.leftMenu {
+   display: flex;
+   flex-direction: row;
+   width:100%;
+   margin:0;
+   padding:0;
+   background-color:#d8d8d8;
+}
+nav .leftMenu>li {
+   padding:15px;
+   cursor:pointer;
    font-size: 100%;
    font-weight: BOLD;
-   left: 0px;
-}
 
+}
+nav .leftMenu > li > a{
+   text-align:center;
+}
 nav .leftMenu>li.joinbutton{
    float:right;
 }
-
 nav .leftMenu>li.loginbutton{
    float:right;
-}
-
-nav.leftMenu>li {
-   width: 900px;
-   padding: 0 20px;
-   height: 100px;
-   line-height: 100px;
-   text-align: center;
-   cursor: pointer;
-   position: relative;
 }
 
 nav .leftMenu>li:hover>.dropmenu {
    visibility: visible;
 }
-
 nav .leftMenu>li>.dropmenu {
    display: inline-block;
    width: 200px;
@@ -120,7 +96,6 @@ nav .leftMenu>li>.dropmenu {
    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
    visibility: hidden;
 }
-
 nav .leftMenu>li>.dropmenu>span {
    width: 200px;
    display: inline-block;
@@ -129,23 +104,19 @@ nav .leftMenu>li>.dropmenu>span {
    color: #000000;
    font-weight: 400;
 }
-
 nav .leftMenu>li>.dropmenu>span:hover {
    font-weight: 700;
 }
-
 nav .leftMenu>li:hover {
    color: #000000;
    font-weight: 700;
    border-bottom: 3px solid #2478FF;
 }
-
 nav .leftMenu>li.active {
    color: #2478FF;
    font-weight: 700;
    border-bottom: 3px solid #2478FF;
 }
-
 nav.rightMenu {
    height: 80%;
    font-size: 100%;
@@ -153,7 +124,6 @@ nav.rightMenu {
    float: right;
    /* right: 0px; */
 }
-
 nav.rightMenu>li {
    width: 100px;
    height: 36px;
@@ -168,7 +138,6 @@ nav.rightMenu>li {
    cursor: pointer;
    border-radius: 50px;
 }
-
 nav .rightMenu>li:hover, nav .rightMenu>li.active {
    color: orange;
    background: white;
@@ -220,8 +189,61 @@ footer .copyright {
    overflow: hidden;
    display: block;
 }
-</style>
 
+
+h1 {
+   text-align:center;
+}
+
+.logid, .logpwd{
+   width:50%;
+   height:50px;
+   text-align:center;
+   font-weight:BOLD;
+   font-size:20px;
+}
+
+input[type=text], input[type=password]{
+   width: 80%;
+   padding: 10px 10px;
+   margin: 8px 0;
+   display: inline-block;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+   font-weight:BOLD;
+   text-align:center;
+}
+
+
+input[type=submit] {
+   width: 50%;
+   padding: 10px 10px;
+   margin: 8px 0;
+   display: inline-block;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+   font-weight: BOLD;
+   font-size: 20px;
+   text-align: center;
+}
+input[type=button] {
+   width: 50%;
+   padding: 10px 10px;
+   margin: 8px 0;
+   display: inline-block;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+   font-weight: BOLD;
+   font-size: 20px;
+   text-align: center;
+}
+
+
+</style>
+<div id="center">
 <header>
       <div class="container">
          
@@ -240,24 +262,36 @@ footer .copyright {
                   <li class="active"><a href="main.mc">HOME</a></li>
                   <li><a href="https://naver.com">소개</a></li>
                   <li><a href="https://google.com">이용안내</a></li>
-                  <li><span class="dropmenu"> <span><a href="#">자유
-                              게시판</a></span> <span><a href="#">문의 게시판</a></span>
-                  </span></li>
+            <!--  <li><span class="dropmenu"> 
+              	  <span><a href="#">자유게시판</a></span>
+                  <span><a href="#">문의 게시판</a></span>
+                  </span></li> -->
                   <li><a href="#">공지사항</a></li>
-                  <span id="tem">현재 온도</span>
-				  <span id="moi">현재 습도</span>
+                   <li class="joinbutton"><a href="join.mc">회원가입</a></li>
+                  <li class="loginbutton"><a href="login.mc">로그인</a></li>
                </ul>
             </c:when>
          </c:choose>
 
       </div>
    </nav>
-
-<div id="center">
 <h1>Login page</h1>
 <form action="loginimpl.mc" method="post">
-&nbsp&nbspID&nbsp&nbsp<input type="text" name="id" ><br>
-PWD&nbsp<input type="password" name="pwd" ><br>
-<input type="submit" value="LOGIN">
+<table>
+                <tr>
+                    <td class="logid" >아이디</td>
+                    <td><input type="text" name="id" maxlength="50"></td>
+                </tr>
+                <tr>
+                    <td class="logpwd" >비밀번호</td>
+                    <td><input type="password" name="pwd" maxlength="50"></td>
+                </tr>
+                <tr>
+                   <td><input type="button" value="회원가입" /></td> 
+                   <td><input type="submit" value="로그인" /></td>                  
+                </tr>
+            </table>
+            <br>
+
 </form>
 </div>

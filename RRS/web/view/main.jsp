@@ -15,9 +15,10 @@
    box-sizing: border-box;
    list-style: none;
 }
+
 .container {
    width: 1080px;
-   height: 100%;
+   height: 150%;
    padding: 0 20px;
 }
 li {
@@ -58,12 +59,21 @@ input[type=submit] {
    box-sizing: border-box;
    font-weight: BOLD;
 }
+#todayinfo{
+	position: absolute;
+	right: 50px;
+	height: 20px;
+}
 /*header css*/
 header {
    width: 100%;
-   height: 75px;
+   height: 150px;
    line-height: 75px;
    color: #2A0066;
+}
+#form{
+	position: relative;
+	top: 40px;
 }
 .mainname {
    font-size:2em;  
@@ -78,21 +88,21 @@ nav {
 }
 .leftMenu {
    display: flex;
-	flex-direction: row;
-	width:100%;
-	margin:0;
-	padding:0;
-	background-color:#d8d8d8;
+   flex-direction: row;
+   width:100%;
+   margin:0;
+   padding:0;
+   background-color:#d8d8d8;
 }
 nav .leftMenu>li {
-	padding:15px;
-	cursor:pointer;
+   padding:15px;
+   cursor:pointer;
    font-size: 100%;
    font-weight: BOLD;
 
 }
 nav .leftMenu > li > a{
-	text-align:center;
+   text-align:center;
 }
 nav .leftMenu>li.joinbutton{
    float:right;
@@ -211,35 +221,35 @@ footer .copyright {
 /* ----------------------------------------------------------------------------------------- */
 //날씨데이터 받아오기
 function getdataW() {
-	var urlstr = 'getweather.mc';
-	$.ajax({
-		url : urlstr,
-		dataType : 'xml',
-		success : function(data) {
-			displayW(data);
-		},
-		error : function() {
-			alert('error5');
-		}
-	});
+   var urlstr = 'getweather.mc';
+   $.ajax({
+      url : urlstr,
+      dataType : 'xml',
+      success : function(data) {
+         displayW(data);
+      },
+      error : function() {
+         alert('error5');
+      }
+   });
 };
 //날씨정보 표시
 function displayW(data) {
-	var items = $(data).find('item');
-	$(items).each(function(index, d) {
-		if ($(d).find('category').text() == 'T1H') {
-			var val = $(d).find('obsrValue').text();
-			$("#tem").text('현재기온 : ' + val+'℃');
-		}
-		if ($(d).find('category').text() == 'REH') {
-			var val = $(d).find('obsrValue').text();
-			$("#moi").text('현재습도 : ' + val+'%');
-		}
-	});
+   var items = $(data).find('item');
+   $(items).each(function(index, d) {
+      if ($(d).find('category').text() == 'T1H') {
+         var val = $(d).find('obsrValue').text();
+         $("#tem").text('현재기온 : ' + val+'℃');
+      }
+      if ($(d).find('category').text() == 'REH') {
+         var val = $(d).find('obsrValue').text();
+         $("#moi").text('현재습도 : ' + val+'%');
+      }
+   });
 };
 //------------------------------------------
 $(document).ready(function() {
-	getdataW();
+   getdataW();
 });
 </script>
 
@@ -247,13 +257,17 @@ $(document).ready(function() {
 <body>
    <!-- header -->
    <header>
+      <div id="todayinfo">
+      	      <span id="tem">현재 온도</span>
+              <span id="moi">현재 습도</span>
+      </div>
       <div class="container">
          
-         <form action="search.mc" method="post">
+         <form id="form" action="search.mc" method="post">
             <span class="mainname">지역 맛집 게시판</span>
             <input type="text" name="loc" id="text-keyword"
                style="width: 60%; height: 50px;" type="text"
-               placeholder="가게명으로 주변 맛집을 찾아보세요"> <input type="submit"
+               placeholder="지역명으로 주변 맛집을 찾아보세요"> <input type="submit"
                sytle="display:none" value="검색">
          </form>
       </div>
@@ -273,8 +287,6 @@ $(document).ready(function() {
                               게시판</a></span> <span><a href="#">문의 게시판</a></span>
                   </span></li> -->
                   <li><a href="#">공지사항</a></li>
-                  <span id="tem">현재 온도</span>
-				  <span id="moi">현재 습도</span>
                   <li class="joinbutton"><a href="join.mc">회원가입</a></li>
                   <li class="loginbutton"><a href="login.mc">로그인</a></li>
                </ul>
@@ -291,8 +303,6 @@ $(document).ready(function() {
                            href="#">문의 게시판</a></span>
                   </span></li> -->
                   <li><a href="#">공지사항</a></li>
-                  <span id="tem">현재 온도</span>
-				  <span id="moi">현재 습도</span>
                   <li class="joinbutton">${loginuser.nickname}님</li>
                   <li class="loginbutton"><a href="logout.mc">로그아웃</a></li>
                </ul>
@@ -301,6 +311,7 @@ $(document).ready(function() {
 
       </div>
    </nav>
+
 
    <section id="cp">
       <c:choose>
@@ -311,8 +322,9 @@ $(document).ready(function() {
             <jsp:include page="${centerpage }.jsp"></jsp:include>
          </c:otherwise>
       </c:choose>
-
    </section>
+   
+   
    <footer>
       <div class="top">
          <div class="container">

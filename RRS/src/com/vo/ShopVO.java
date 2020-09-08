@@ -18,7 +18,33 @@ public class ShopVO {
 	private String img1;
 	private String img2;
 	private String img3;
+	private int sumup;
 	MultipartFile mf;
+	
+	
+	public ShopVO(String shopname, String img1, int sumup) {
+		super();
+		this.shopname = shopname;
+		this.img1 = img1;
+		this.sumup = sumup;
+	}
+
+	public ShopVO(int shopid, String shopname, String img1, int sumup) {
+		super();
+		this.shopid = shopid;
+		this.shopname = shopname;
+		this.img1 = img1;
+		this.sumup = sumup;
+	}
+
+	public int getSumup() {
+		return sumup;
+	}
+
+	public void setSumup(int sumup) {
+		this.sumup = sumup;
+	}
+
 	public ShopVO() {
 	}
 	

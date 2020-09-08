@@ -51,6 +51,8 @@ public class Shop_commentBiz implements Biz<Integer, Shop_commentVO>, Find<Integ
 	public ArrayList<Shop_commentVO> comment(Integer k) throws Exception{
 		return dao.comment(k);
 	}
+
+
 	
 	
 

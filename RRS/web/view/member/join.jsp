@@ -3,15 +3,15 @@
 <div id="center">
 <style>
 input[type=text], input[type=password]{
-	width: 20%;
-	height:50px;
-	padding: 10px 10px;
-	margin: 8px 0;
-	display: inline-block;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-sizing: border-box;
-	font-weight:BOLD;
+   width: 20%;
+   height:50px;
+   padding: 10px 10px;
+   margin: 8px 0;
+   display: inline-block;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+   font-weight:BOLD;
 }
 
 /*general css*/
@@ -49,7 +49,7 @@ body {
    clear: both;
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
    width: 80%;
    padding: 10px 10px;
    margin: 8px 0;
@@ -59,10 +59,11 @@ input[type=text] {
    box-sizing: border-box;
    font-weight: BOLD;
    font-size: 20px;
+   text-align: center;
 }
 
 input[type=submit] {
-   width: 9%;
+   width: 50%;
    padding: 10px 10px;
    margin: 8px 0;
    display: inline-block;
@@ -70,7 +71,10 @@ input[type=submit] {
    border-radius: 4px;
    box-sizing: border-box;
    font-weight: BOLD;
+   font-size: 20px;
+   text-align: center;
 }
+
 
 /*header css*/
 header {
@@ -81,47 +85,45 @@ header {
 }
 
 .mainname {
-   font-size:1.5em;  
-   color: green;
+   font-size:2em;  
+   font-weight:600;
+   color: #00FFFF;
 }
 
 /*nav css start*/
 nav {
    width: 100%;
    height: 50px;
-   border-bottom: 3px solid #cbcbcb;
+   background-color:#d8d8d8;
 }
-
-nav.leftMenu {
-   float: left;
-   height: 80%;
+.leftMenu {
+   display: flex;
+   flex-direction: row;
+   width:100%;
+   margin:0;
+   padding:0;
+   background-color:#d8d8d8;
+}
+nav .leftMenu>li {
+   padding:15px;
+   cursor:pointer;
    font-size: 100%;
    font-weight: BOLD;
-   left: 0px;
-}
 
+}
+nav .leftMenu > li > a{
+   text-align:center;
+}
 nav .leftMenu>li.joinbutton{
    float:right;
 }
-
 nav .leftMenu>li.loginbutton{
    float:right;
-}
-
-nav.leftMenu>li {
-   width: 900px;
-   padding: 0 20px;
-   height: 100px;
-   line-height: 100px;
-   text-align: center;
-   cursor: pointer;
-   position: relative;
 }
 
 nav .leftMenu>li:hover>.dropmenu {
    visibility: visible;
 }
-
 nav .leftMenu>li>.dropmenu {
    display: inline-block;
    width: 200px;
@@ -133,7 +135,6 @@ nav .leftMenu>li>.dropmenu {
    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
    visibility: hidden;
 }
-
 nav .leftMenu>li>.dropmenu>span {
    width: 200px;
    display: inline-block;
@@ -142,23 +143,19 @@ nav .leftMenu>li>.dropmenu>span {
    color: #000000;
    font-weight: 400;
 }
-
 nav .leftMenu>li>.dropmenu>span:hover {
    font-weight: 700;
 }
-
 nav .leftMenu>li:hover {
    color: #000000;
    font-weight: 700;
    border-bottom: 3px solid #2478FF;
 }
-
 nav .leftMenu>li.active {
    color: #2478FF;
    font-weight: 700;
    border-bottom: 3px solid #2478FF;
 }
-
 nav.rightMenu {
    height: 80%;
    font-size: 100%;
@@ -166,7 +163,6 @@ nav.rightMenu {
    float: right;
    /* right: 0px; */
 }
-
 nav.rightMenu>li {
    width: 100px;
    height: 36px;
@@ -181,7 +177,6 @@ nav.rightMenu>li {
    cursor: pointer;
    border-radius: 50px;
 }
-
 nav .rightMenu>li:hover, nav .rightMenu>li.active {
    color: orange;
    background: white;
@@ -233,14 +228,27 @@ footer .copyright {
    overflow: hidden;
    display: block;
 }
+
+h1 {
+   text-align:center;
+}
+
+.joinid, .joinpwd, .joinname, .joinnum, .joinnick{
+   width:30%;
+   height:50px;
+   text-align:center;
+   font-weight:BOLD;
+   font-size:20px;
+}
+
 </style>
 
 <header>
       <div class="container">
          
-         <form action="search.mc" method="post">
+ 
             <span class="mainname">지역 맛집 게시판</span>
-         </form>
+
       </div>
 </header>
 
@@ -253,12 +261,10 @@ footer .copyright {
                   <li class="active"><a href="main.mc">HOME</a></li>
                   <li><a href="https://naver.com">소개</a></li>
                   <li><a href="https://google.com">이용안내</a></li>
-                  <li><span class="dropmenu"> <span><a href="#">자유
+                  <!-- <li><span class="dropmenu"> <span><a href="#">자유
                               게시판</a></span> <span><a href="#">문의 게시판</a></span>
-                  </span></li>
+                  </span></li> -->
                   <li><a href="#">공지사항</a></li>
-                  <span id="tem">현재 온도</span>
-				  <span id="moi">현재 습도</span>
                </ul>
             </c:when>
          </c:choose>
@@ -268,12 +274,33 @@ footer .copyright {
    
 <h1>회원가입</h1>
 <form action="joinimpl.mc" method="post">
-&nbspID&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="userid"><br>
-&nbspPWD&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="password" name="userpwd"><br>
-&nbspNAME&nbsp&nbsp&nbsp&nbsp<input type="text" name="username"><br>
-&nbspPHONENUMBER<input type="text" name="userphonenumber"><br>
-&nbspNICKNAME&nbsp&nbsp<input type="text" name="nickname"><br>
-<input type="hidden" name="admincheck" value=0><br>
-<input type="submit" name="REGISTER" value="가입하기"><br>
+<table>
+ <tr>
+        <td class="joinid" >ID</td>
+        <td><input type="text" name="userid" maxlength="50"></td>
+ </tr>
+<tr>
+        <td class="joinpwd">PWD</td>
+        <td><input type="password" name="userpwd" maxlength="50"></td>
+</tr>
+<tr>
+        <td class="joinname">NAME</td>
+        <td><input type="text" name="username" maxlength="50"></td>
+</tr>
+<tr>
+        <td class="joinnum">PHONENUMBER</td>
+        <td><input type="text" name="userphonenumber" maxlength="50"></td>
+</tr>
+<tr>
+        <td class="joinnick">NICKNAME</td>
+        <td><input type="text" name="nickname" maxlength="50"></td>
+</tr>
+<tr>
+        <td><input type="hidden" name="admincheck" value=0></td>
+        <td><input type="submit" name="REGISTER" value="가입하기"></td>
+</tr>
+</table>
+
 </form>
+
 </div>
