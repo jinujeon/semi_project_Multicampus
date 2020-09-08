@@ -62,16 +62,16 @@ public class ShopController {
 	@RequestMapping("/shop_registimpl.mc")
 	public ModelAndView shopaddimpl(ModelAndView mv, HttpServletResponse response, ShopVO shop) throws IOException {
 
-		ShopVO list = shop;
-
 		//가게 이미지 등록
 		String imgname = shop.getMf().getOriginalFilename();
 		shop.setImg1(imgname);
 		shop.setImg2(imgname);
 		shop.setImg3(imgname);
+		
+		//댓글 정보
+		ArrayList<Shop_commentVO> shop_comment = null;
 
 		try {
-			System.out.println(shop);
 			Util.saveFile(shop.getMf());
 			
 			response.setContentType("text/html; charset=UTF-8");
@@ -81,6 +81,9 @@ public class ShopController {
 			
 			mv.addObject("registshop", shop);
 			mv.addObject("centerpage", "first");
+			
+			shop_comment = cbiz.get();
+			mv.addObject("shop_comment", shop_comment);
 			
 		} catch (Exception e) {
 			response.setContentType("text/html; charset=UTF-8");
@@ -368,7 +371,8 @@ public class ShopController {
 		ArrayList<ShopVO> list = new ArrayList<>();
 
 		try {
-			list = rankbiz.rankshop();			
+			list = rankbiz.rankshop();	
+			System.out.println("test:"+list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

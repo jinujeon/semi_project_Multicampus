@@ -70,6 +70,14 @@ public class MainController {
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		MemberVO dbuser = null;
+		
+		//spring에서 alert를 하는 구문(ajax에 데이터 보내기 위한 설정)----------------------------------
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		//댓글 정보
+		ArrayList<Shop_commentVO> shop_comment = null;
+		
 		try {
 			dbuser = mbiz.get(id);
 			if(dbuser.getUserpwd().equals(pwd)) {
@@ -77,22 +85,18 @@ public class MainController {
 				session.setAttribute("loginuser", dbuser);
 				mv.addObject("centerpage", "first");
 			}else { //password 오류 시
-			//	mv.addObject("centerpage", "login");
+				mv.addObject("centerpage", "login");
 				//spring에서 alert를 하는 구문----------------------------------
-				response.setContentType("text/html; charset=UTF-8");
-				PrintWriter out = response.getWriter();
 				out.println("<script>alert('로그인에 실패하였습니다'); </script>");
 				out.flush();
 				//---------------------------------------------------------
 			}
+			shop_comment = cbiz.get();
+			mv.addObject("shop_comment", shop_comment);
 		} catch (Exception e) {
-		//	mv.addObject("centerpage", "login");
-			//
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
+			mv.addObject("centerpage", "login");
 			out.println("<script>alert('로그인 오류입니다'); </script>");
 			out.flush();
-			//
 			e.printStackTrace();
 		}
 		mv.setViewName("main");
@@ -106,6 +110,17 @@ public class MainController {
 		if(session != null) {
 			session.invalidate();
 		}
+		
+		//댓글 정보
+		ArrayList<Shop_commentVO> shop_comment = null;
+
+		try {
+			shop_comment = cbiz.get();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		mv.addObject("shop_comment", shop_comment);
 		mv.setViewName("main");
 		return mv;
 	}
@@ -122,13 +137,18 @@ public class MainController {
 	@RequestMapping("/joinimpl.mc")
 	public ModelAndView useraddimpl(ModelAndView mv, MemberVO member,HttpServletResponse response) throws IOException {
 
+		//댓글 정보
+		ArrayList<Shop_commentVO> shop_comment = null;
+		
 		try {
 			mbiz.register(member);
+			shop_comment = cbiz.get();
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('회원가입 되었습니다'); </script>");
 			out.flush();
-		//	mv.addObject("centerpage", "first");
+			mv.addObject("shop_comment", shop_comment);
+			mv.addObject("centerpage", "first");
 			mv.setViewName("main");
 		} catch (Exception e) {
 			response.setContentType("text/html; charset=UTF-8");

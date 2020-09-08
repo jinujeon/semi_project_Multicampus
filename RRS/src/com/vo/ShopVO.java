@@ -223,10 +223,12 @@ public class ShopVO {
 	@Override
 	public String toString() {
 		return "ShopVO [shopid=" + shopid + ", userid=" + userid + ", shopname=" + shopname + ", shopphonenumber="
-				+ shopphonenumber + ", address=" + address + ",  lat=" + lat + ", lon=" + lon
-				+ ", shopdate=" + shopdate + ", cnt=" + cnt + ", info=" + info + ", img1=" + img1 + ", img2=" + img2
-				+ ", img3=" + img3 + ", mf=" + mf + "]";
+				+ shopphonenumber + ", address=" + address + ", lat=" + lat + ", lon=" + lon + ", shopdate=" + shopdate
+				+ ", cnt=" + cnt + ", info=" + info + ", img1=" + img1 + ", img2=" + img2 + ", img3=" + img3
+				+ ", sumup=" + sumup + ", mf=" + mf + "]";
 	}
+
+
 
 
 }

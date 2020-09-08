@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>RRS</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <style>
 /*general css*/
@@ -77,13 +77,14 @@ header {
 }
 .mainname {
    font-size:2em;  
-   font-weight:600;
+   font-weight:900;
    color: #00FFFF;
+   text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.44);
 }
 /*nav css start*/
 nav {
    width: 100%;
-   height: 50px;
+   height: 55px;
    background-color:#d8d8d8;
 }
 .leftMenu {
@@ -264,7 +265,7 @@ $(document).ready(function() {
       <div class="container">
          
          <form id="form" action="search.mc" method="post">
-            <span class="mainname">지역 맛집 게시판</span>
+            <span class="mainname" onclick="location.href='main.mc'">지역 맛집 게시판</span>
             <input type="text" name="loc" id="text-keyword"
                style="width: 60%; height: 50px;" type="text"
                placeholder="지역명으로 주변 맛집을 찾아보세요"> <input type="submit"
