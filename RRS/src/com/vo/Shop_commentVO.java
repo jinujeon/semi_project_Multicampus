@@ -10,7 +10,7 @@ public class Shop_commentVO {
 	private int shopid;
 	private String commentcontents;
 	private Date commentdate;
-	private String commentImg;
+	private String comment_img;
 	MultipartFile mf;
 	public Shop_commentVO() {
 		super();
@@ -23,7 +23,7 @@ public class Shop_commentVO {
 		this.shopid = shopid;
 		this.commentcontents = commentcontents;
 		this.commentdate = commentdate;
-		this.commentImg = commentImg;
+		this.comment_img = commentImg;
 		this.mf = mf;
 	}
 	public Shop_commentVO(int commentid, String userid, int shopid, String commentcontents, String commentImg, 
@@ -33,7 +33,7 @@ public class Shop_commentVO {
 		this.userid = userid;
 		this.shopid = shopid;
 		this.commentcontents = commentcontents;
-		this.commentImg = commentImg;
+		this.comment_img = commentImg;
 		this.mf = mf;
 	}
 	public Shop_commentVO(int commentid, String userid, int shopid, String commentcontents) {
@@ -78,11 +78,11 @@ public class Shop_commentVO {
 	public void setCommentdate(Date commentdate) {
 		this.commentdate = commentdate;
 	}
-	public String getCommentImg() {
-		return commentImg;
+	public String getComment_img() {
+		return comment_img;
 	}
-	public void setCommentImg(String commentImg) {
-		this.commentImg = commentImg;
+	public void setComment_img(String commentImg) {
+		this.comment_img = commentImg;
 	}
 	public MultipartFile getMf() {
 		return mf;

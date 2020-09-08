@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.dao.ShopDao;
 import com.frame.Biz;
+import com.frame.Setxy;
 import com.vo.ShopVO;
 
 @Service("sbiz")
-public class ShopBiz implements Biz<Integer, ShopVO> {
+public class ShopBiz implements Biz<Integer, ShopVO>, Setxy<Integer, ShopVO> {
 	@Resource(name="sdao")
 	ShopDao dao;
 
@@ -46,5 +47,10 @@ public class ShopBiz implements Biz<Integer, ShopVO> {
 	public ArrayList<ShopVO> get() throws Exception {
 		return dao.selectall();
 	}
+
+	@Override
+	public void setxy(ShopVO v) throws Exception {
+		dao.setxy(v);
+	}	
 
 }

@@ -7,11 +7,11 @@
 가게 이름 : <input type="text" name="shopname" value="${dbshop.shopname }"><br>
 가게 번호 : <input name="shopphonenumber" value="${dbshop.shopphonenumber }"><br>
 가게 주소 : <input name="address" value="${dbshop.address }"><br>
-지역<select name="locate" id="locate">
-        	<option value="gangnam">강남구</option>
-        	<option value="songpa">송파구</option>
-        	<option value="jung">중구</option>
-        </select><br>
+<!-- 지역<select name="locate" id="locate">
+           <option value="gangnam">강남구</option>
+           <option value="songpa">송파구</option>
+           <option value="jung">중구</option>
+        </select><br>  --> 
 가게 내용 : <input name="info" value="${dbshop.info }"><br>
 
 IMG: ${dbshop.img1 }<br>

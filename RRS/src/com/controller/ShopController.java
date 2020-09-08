@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.frame.Biz;
 import com.frame.Find;
+import com.frame.Setxy;
 import com.vo.ShopVO;
 import com.vo.Shop_commentVO;
 import com.vo.Shop_recommendVO;
@@ -36,6 +37,10 @@ public class ShopController {
 
 	@Resource(name="rbiz")
 	Biz<Integer, Shop_recommendVO> rbiz;
+	
+	//setxy하기 위해 인터페이스 추가 설정
+	@Resource(name="sbiz")
+	Setxy<Integer, ShopVO> setxybiz;
 
 	//가게 등록 페이지로 이동
 	@RequestMapping("/shop_regist.mc")
@@ -50,7 +55,9 @@ public class ShopController {
 
 	//가게 등록 완료
 	@RequestMapping("/shop_registimpl.mc")
-	public ModelAndView shopaddimpl(ModelAndView mv, HttpServletResponse response, ShopVO shop) {
+	public ModelAndView shopaddimpl(ModelAndView mv, HttpServletResponse response, ShopVO shop) throws IOException {
+
+		ShopVO list = shop;
 
 		//가게 이미지 등록
 		String imgname = shop.getMf().getOriginalFilename();
@@ -59,18 +66,57 @@ public class ShopController {
 		shop.setImg3(imgname);
 
 		try {
+			System.out.println(shop);
 			sbiz.register(shop);
 			Util.saveFile(shop.getMf());
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('등록되었습니다'); </script>");
+			out.flush();
+			
+			mv.addObject("registshop", shop);
+			mv.addObject("centerpage", "first");
+			
 		} catch (Exception e) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('등록에 실패했습니다'); </script>");
+			out.flush();
 			mv.addObject("centerpage", "shop/registerfail");
 			e.printStackTrace();
 		}
-		mv.addObject("registshop", shop);
-		mv.addObject("centerpage", "shop/shop_list");
+
 		mv.setViewName("main");
 
 		return mv;
 	}
+	
+	
+	//가게 위도 경도 설정
+	@RequestMapping("/shopxyupdate.mc")
+	public void shopxyupdate(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		
+		//ajax통신으로 받아온 데이터 정리
+		double lat = Double.parseDouble(request.getParameter("x"));
+		double lon = Double.parseDouble(request.getParameter("y"));
+		
+		//정리한 데이터 객체이 삽입
+		ShopVO shop = new ShopVO(lat, lon);
+		
+		try {
+			setxybiz.setxy(shop);
+			System.out.println("OK");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("errorxy");
+		}
+
+	}
+	
+	
 
 	//가게 리스트 화면
 	@RequestMapping("/shop_list.mc")
@@ -120,7 +166,7 @@ public class ShopController {
 
 		//가게 이미지 등록
 		String imgname = shop_comment.getMf().getOriginalFilename();
-		shop_comment.setCommentImg(imgname);
+		shop_comment.setComment_img(imgname);
 
 		try {
 			cbiz.register(shop_comment);
@@ -190,55 +236,55 @@ public class ShopController {
 		return mv;
 	}
 
+	
 	@RequestMapping("/shopdelete.mc")
-	public String shopdelete(Integer shopid) {
-		
-		try {
-			sbiz.remove(shopid);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return "redirect:main.mc";
-	}
-	
-	@RequestMapping("/shopupdate.mc")
-	public ModelAndView shopupdate(ModelAndView mv, Integer shopid) {
-		
-		ShopVO dbshop = null;
-		
-		try {
-			dbshop = sbiz.get(shopid);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		mv.addObject("dbshop", dbshop);
-		mv.addObject("centerpage", "shop/modify");
-		mv.setViewName("main");
-		return mv;
-	}
-	
-	@RequestMapping("/shopupdateimpl.mc")
-	public String shopupdateimpl(ShopVO shop) {
-		String newimgname = shop.getMf().getOriginalFilename();
-		
-		System.out.println(newimgname);
-		
-		if(! newimgname.equals("")) {
-			shop.setImg1(newimgname);
-			Util.saveFile(shop.getMf());
-		}
-		
-		try {
-			sbiz.modify(shop);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return "redirect:shop_detail.mc?shopid="+shop.getShopid();
-	}
-	
+	   public String shopdelete(Integer shopid) {
+	      
+	      try {
+	         sbiz.remove(shopid);
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      
+	      return "redirect:main.mc";
+	   }
+	   
+	   @RequestMapping("/shopupdate.mc")
+	   public ModelAndView shopupdate(ModelAndView mv, Integer shopid) {
+	      
+	      ShopVO dbshop = null;
+	      
+	      try {
+	         dbshop = sbiz.get(shopid);
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      
+	      mv.addObject("dbshop", dbshop);
+	      mv.addObject("centerpage", "shop/modify");
+	      mv.setViewName("main");
+	      return mv;
+	   }
+	   
+	   @RequestMapping("/shopupdateimpl.mc")
+	   public String shopupdateimpl(ShopVO shop) {
+	      String newimgname = shop.getMf().getOriginalFilename();
+	      
+	      System.out.println(newimgname);
+	      
+	      if(! newimgname.equals("")) {
+	         shop.setImg1(newimgname);
+	         Util.saveFile(shop.getMf());
+	      }
+	      
+	      try {
+	         sbiz.modify(shop);
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      
+	      return "redirect:shop_detail.mc?shopid="+shop.getShopid();
+	   }
 	
 	//가게 위치 위도경도(가게 정보) 받아오기
 	@RequestMapping("/getshopdata.mc")

@@ -10,7 +10,6 @@ public class ShopVO {
 	private String shopname;
 	private String shopphonenumber;
 	private String address;
-	private String locate;
 	private double lat;
 	private double lon;
 	private Date shopdate;
@@ -23,6 +22,19 @@ public class ShopVO {
 	public ShopVO() {
 	}
 	
+	public ShopVO(double lat, double lon) {
+		super();
+		this.lat = lat;
+		this.lon = lon;
+	}
+
+	public ShopVO(int shopid, double lat, double lon) {
+		super();
+		this.shopid = shopid;
+		this.lat = lat;
+		this.lon = lon;
+	}
+
 	public ShopVO(int shopid, String userid, String shopname, String shopphonenumber, String address, String locate,
 			double lat, double lon, Date shopdate, int cnt, String info, String img1, String img2, String img3,
 			MultipartFile mf) {
@@ -32,7 +44,6 @@ public class ShopVO {
 		this.shopname = shopname;
 		this.shopphonenumber = shopphonenumber;
 		this.address = address;
-		this.locate = locate;
 		this.lat = lat;
 		this.lon = lon;
 		this.shopdate = shopdate;
@@ -44,14 +55,13 @@ public class ShopVO {
 		this.mf = mf;
 	}
 
-	public ShopVO(String userid, String shopname, String shopphonenumber, String address, String locate, String info,
+	public ShopVO(String userid, String shopname, String shopphonenumber, String address, String info,
 			String img1, String img2, String img3, MultipartFile mf) {
 		super();
 		this.userid = userid;
 		this.shopname = shopname;
 		this.shopphonenumber = shopphonenumber;
 		this.address = address;
-		this.locate = locate;
 		this.info = info;
 		this.img1 = img1;
 		this.img2 = img2;
@@ -59,13 +69,12 @@ public class ShopVO {
 		this.mf = mf;
 	}
 
-	public ShopVO(String shopname, String shopphonenumber, String address, String locate, String info, String img1,
+	public ShopVO(String shopname, String shopphonenumber, String address, String info, String img1,
 			String img2, String img3, MultipartFile mf) {
 		super();
 		this.shopname = shopname;
 		this.shopphonenumber = shopphonenumber;
 		this.address = address;
-		this.locate = locate;
 		this.info = info;
 		this.img1 = img1;
 		this.img2 = img2;
@@ -111,14 +120,6 @@ public class ShopVO {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public String getLocate() {
-		return locate;
-	}
-
-	public void setLocate(String locate) {
-		this.locate = locate;
 	}
 
 	public double getLat() {
@@ -196,7 +197,7 @@ public class ShopVO {
 	@Override
 	public String toString() {
 		return "ShopVO [shopid=" + shopid + ", userid=" + userid + ", shopname=" + shopname + ", shopphonenumber="
-				+ shopphonenumber + ", address=" + address + ", locate=" + locate + ", lat=" + lat + ", lon=" + lon
+				+ shopphonenumber + ", address=" + address + ",  lat=" + lat + ", lon=" + lon
 				+ ", shopdate=" + shopdate + ", cnt=" + cnt + ", info=" + info + ", img1=" + img1 + ", img2=" + img2
 				+ ", img3=" + img3 + ", mf=" + mf + "]";
 	}

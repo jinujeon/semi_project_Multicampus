@@ -13,13 +13,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<insert id="insert" parameterType="shop">
 		INSERT INTO SHOP VALUES 
-		(S_SEQ.NEXTVAL, #{userid}, #{shopname}, #{shopphonenumber}, #{address}, #{locate}, 37.123456, 37.123456, SYSDATE, 0, #{info}, #{img1}, #{img2}, #{img3})
+		(S_SEQ.NEXTVAL, #{userid}, #{shopname}, #{shopphonenumber}, #{address} , 37.123456, 127.056490, SYSDATE, 0, #{info}, #{img1}, #{img2}, #{img3})
 	</insert>
 	
-	<!-- 가게 업데이트 -->
-	<update id="update" parameterType="shop">
-		UPDATE SHOP SET SHOPNAME=#{shopname}, SHOPPHONENUMBER=#{shopphonenumber}, ADDRESS=#{address}, LOCATE=#{locate}, INFO=#{info}, IMG1=#{img1}, IMG2=#{img2}, IMG3=#{img3} WHERE SHOPID=#{shopid}
-	</update>
+   <update id="update" parameterType="shop">
+      UPDATE SHOP SET SHOPNAME=#{shopname}, SHOPPHONENUMBER=#{shopphonenumber}, ADDRESS=#{address}, INFO=#{info}, IMG1=#{img1}, IMG2=#{img2}, IMG3=#{img3} WHERE SHOPID=#{shopid}
+   </update>
 	
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM SHOP WHERE SHOPID=#{k}
@@ -36,6 +35,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<update id="setcnt" parameterType="Integer">
 		UPDATE SHOP SET CNT=CNT+1 WHERE SHOPID=#{k}
+	</update>
+	
+	<update id="setxy" parameterType="shop">
+		 <![CDATA[ UPDATE SHOP SET LAT=#{lon}, LON=#{lat} WHERE SHOPID=(SELECT MAX(SHOPID) FROM SHOP WHERE SHOPID < 1000)  ]]>
 	</update>
 	
 	

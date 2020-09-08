@@ -263,85 +263,31 @@ function displayShop(shoplist) {
 		);
 } 
 
-/* ----------------------------------------------------------------------------------------- */
-/*                                    shop 등록시 주소로 위도 경도 세팅                                                                              */
-/* ----------------------------------------------------------------------------------------- */
 
-function setshopxy() {
-	var shopxy = {};
-	
-			$.ajax({
-				method : 'GET',
-				url : 'https://dapi.kakao.com/v2/local/search/address.json',
-				async : false,
-				headers : {
-					'Authorization' : 'KakaoAK 8bb4664642b1184f894533fe7edb0245'
-				},
-				data : {
-					'query' : '${registshop.address}',
-					'page' : 1,
-					'AddressSize' : 3
-				},
-				success : function(data) {
-					console.log(data);
-				},
-				error : function() {
-					alert('error_shopxy');
-				}
-			});
-
-/*			
-			$.ajax({
-				url : 'getshopdata.mc',
-				async : false,
-				success : function(result) {
-					arrs = result;
-					
-					for(i=0; i<result.length; i++){
-						var shopname = result[i].shopname;
-						var shopid = result[i].shopid;
-						var lat = result[i].lat;
-						var lon = result[i].lon;
-						var shopphonenumber = result[i].shopphonenumber;
-						var resulthtml = '';
-						resulthtml += shopname +' ' + shopid + ' ' + lat + ' ' + lon + ' ' + shopphonenumber + '<br>';
-									
-						var latiS = parseFloat((parseFloat(result[i].lat)).toFixed(6));
-						var longiS = parseFloat((parseFloat(result[i].lon)).toFixed(6));
-						$('#result2').append(i+' : '+resulthtml);
-					}    
-				},
-				error : function() {
-					alert('Error3');
-				}
-			});
-			return arrs;
-			
-*/			
-}
  
 //--------------------------------------------------
 $(document).ready(function() {
-	setshopxy();
 	getData(); // 검색한 값으로 검색리스트 받아오기
 	arrs = getshopdata(); // DB샵정보
 	arrs2 = getshopdata2(); // DB샵추천정보 
-	mapDislapy();
 	//sw==0은 주소로 검색 else는 키워드로 검색
+	mapDislapy();
 	if(sw==0){
 		panTo(latiA[0], longiA[0]);
 	}else{
 		panTo(latiK[0], longiK[0]);
-	}
+	}  
 	displayShop(arrs);
+
 });
 </script>
 
-<!--정보확인용 테스트화면-->
+<!--정보확인용 테스트화면
 <h1>${address}</h1>
 <div id="result"></div>
 <div id="result2">
 </div>
+-->
 
 
 <div id="map"></div>
