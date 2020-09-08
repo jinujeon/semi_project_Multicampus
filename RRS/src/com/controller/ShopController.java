@@ -52,8 +52,6 @@ public class ShopController {
 	@RequestMapping("/shop_registimpl.mc")
 	public ModelAndView shopaddimpl(ModelAndView mv, HttpServletResponse response, ShopVO shop) {
 
-		ShopVO list = shop;
-
 		//가게 이미지 등록
 		String imgname = shop.getMf().getOriginalFilename();
 		shop.setImg1(imgname);
@@ -192,6 +190,55 @@ public class ShopController {
 		return mv;
 	}
 
+	@RequestMapping("/shopdelete.mc")
+	public String shopdelete(Integer shopid) {
+		
+		try {
+			sbiz.remove(shopid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:main.mc";
+	}
+	
+	@RequestMapping("/shopupdate.mc")
+	public ModelAndView shopupdate(ModelAndView mv, Integer shopid) {
+		
+		ShopVO dbshop = null;
+		
+		try {
+			dbshop = sbiz.get(shopid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		mv.addObject("dbshop", dbshop);
+		mv.addObject("centerpage", "shop/modify");
+		mv.setViewName("main");
+		return mv;
+	}
+	
+	@RequestMapping("/shopupdateimpl.mc")
+	public String shopupdateimpl(ShopVO shop) {
+		String newimgname = shop.getMf().getOriginalFilename();
+		
+		System.out.println(newimgname);
+		
+		if(! newimgname.equals("")) {
+			shop.setImg1(newimgname);
+			Util.saveFile(shop.getMf());
+		}
+		
+		try {
+			sbiz.modify(shop);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:shop_detail.mc?shopid="+shop.getShopid();
+	}
+	
 	
 	//가게 위치 위도경도(가게 정보) 받아오기
 	@RequestMapping("/getshopdata.mc")

@@ -97,6 +97,7 @@ $(document).ready(function() {
 	<img src="img/${shopdetail.img1 }">
 	<h2>${shopdetail.address }</h2>
 	<h2>${shopdetail.shopphonenumber }</h2>
+	<h2>${shopdetail.info }</h2>
 	<h2>${shopdetail.shopdate }</h2>
 	<h2>조회수 : ${shopdetail.cnt }</h2>
 	<div id="btnrecommend">
@@ -158,8 +159,8 @@ $(document).ready(function() {
 	<!-- 게시글 수정 삭제 div (게시글 작성회원에게만 수정삭제폼이 보이게 처리)-->
 	<c:choose>
 		<c:when test="${loginuser.userid  == shopdetail.userid}">
-			<h3><a href="shopdelete.mc?id=${shopdetail.shopid }">DELETE</a></h3>
-			<h3><a href="shopupdate.mc?id=${shopdetail.shopid }">UPDATE</a></h3>
+			<h3><a href="shopdelete.mc?shopid=${shopdetail.shopid }">DELETE</a></h3>
+			<h3><a href="shopupdate.mc?shopid=${shopdetail.shopid }">UPDATE</a></h3>
 		</c:when>
 		<c:otherwise>
 		

@@ -269,7 +269,6 @@ function displayShop(shoplist) {
 
 function setshopxy() {
 	var shopxy = {};
-	alert(${registshop});
 	
 			$.ajax({
 				method : 'GET',
@@ -279,7 +278,7 @@ function setshopxy() {
 					'Authorization' : 'KakaoAK 8bb4664642b1184f894533fe7edb0245'
 				},
 				data : {
-					'query' : '${registshop.adress}',
+					'query' : '${registshop.address}',
 					'page' : 1,
 					'AddressSize' : 3
 				},

@@ -16,8 +16,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		(S_SEQ.NEXTVAL, #{userid}, #{shopname}, #{shopphonenumber}, #{address}, #{locate}, 37.123456, 37.123456, SYSDATE, 0, #{info}, #{img1}, #{img2}, #{img3})
 	</insert>
 	
+	<!-- 가게 업데이트 -->
 	<update id="update" parameterType="shop">
-		UPDATE SHOP SET SHOPID=#{shopname}, SHOPPHONENUMBER=#{shopphonenumber}, ADDRESS=#{address}, LOCATE=#{locate}, INFO=#{info}, IMG1=#{img1}, IMG2=#{img2}, IMG3=#{img3} WHERE SHOPID=#{shopid}
+		UPDATE SHOP SET SHOPNAME=#{shopname}, SHOPPHONENUMBER=#{shopphonenumber}, ADDRESS=#{address}, LOCATE=#{locate}, INFO=#{info}, IMG1=#{img1}, IMG2=#{img2}, IMG3=#{img3} WHERE SHOPID=#{shopid}
 	</update>
 	
 	<delete id="delete" parameterType="Integer">
