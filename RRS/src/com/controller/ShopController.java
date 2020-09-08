@@ -48,7 +48,7 @@ public class ShopController {
 
 		//mv.addObject("dbuser", member); //아이디 자동 입력을 위해 멤버객체 등록 
 		mv.addObject("centerpage", "shop/shop_regist");	//가게 등록jsp
-		mv.setViewName("main");
+		mv.setViewName("shop/shop_regist");
 		return mv;
 
 	}
@@ -67,7 +67,6 @@ public class ShopController {
 
 		try {
 			System.out.println(shop);
-			sbiz.register(shop);
 			Util.saveFile(shop.getMf());
 			
 			response.setContentType("text/html; charset=UTF-8");
@@ -283,7 +282,7 @@ public class ShopController {
 	         e.printStackTrace();
 	      }
 	      
-	      return "redirect:shop_detail.mc?shopid="+shop.getShopid();
+	      return "redirect:main.mc?shopid="+shop.getShopid();
 	   }
 	
 	//가게 위치 위도경도(가게 정보) 받아오기

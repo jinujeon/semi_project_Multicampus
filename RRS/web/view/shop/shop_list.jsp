@@ -6,15 +6,70 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2348a50ce2bdcf2f6cf00ff8ad5e426d"></script>
 <style>
-	#map {
-		width: 695px;
-		height: 600px;
-		border: 2px solid blue;
+#map {
+	width: 695px;
+	height: 600px;
+	border: 2px solid blue;
+}
+	/*가게 게시글 css start*/
+#center > nav {
+	width:100%;
+	height:50px;
+	background:white;
+	font-size:25px;
+	border-top: 7px solid #cbcbcb;	
+}
+input select{
+	width: 30%;
+	padding: 10px 10px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	font-weight:BOLD;
+}
+#center > section{
+	width:100%;
+	height:100%;
+	background:white;
+}
+		/*가게 게시글 css end*/
+		
+		/*table css start*/
+#shop_table{
+	width:75%;
+	border-collapse:collapse;
+	border-right:none;
+	border-left:none;
+	border-bottom:none;
+	border-top:2px solid black;
+	margin:0 auto;
+	font-size:20px;
+	overflow:auto;
+	left:0px;
+	text-align:center;	
+}
+#shop_table > thead{
+	color: black;
+}
+	.no, .po, .sct, .sw{
+		width:10%;
+		height:50px;
 	}
-	
-	img {
-		width: 50px;
-		height: 50px;
+	.sn{
+		width:60%;
+		height:50px;
+	}
+
+
+		/*table css end*/
+		
+		/*img css*/
+img{
+	width:60px;
+	height:60px;
+	border-radius: 4px;
 	}
 </style>
 
@@ -291,19 +346,25 @@ $(document).ready(function() {
 
 
 <div id="map"></div>
-
+	<p class="gap1"></p>
 <div id="center">
-<h1>가게게시글</h1>
+<nav>
+<h1>&nbsp가게 리스트 &nbsp</h1>
+</nav>
+<section>
 <table id="shop_table" border="1">
+	<thead>
         <tr>
-            <th>번호</th>
-            <th>사진</th>
-            <th>가게이름</th>
-            <th>글쓴이</th>
-            <th>조회수</th>
+            <th class="no">NO.</th>
+            <th class="po">사진</th>
+            <th class="sn">가게이름</th>
+            <th class="sw">작성자</th>
+            <th class="sct">조회</th>
         </tr>
+     </thead>
         <!-- forEach 문을 활용하여 shop list 보여주기 -->
 <!--        <c:forEach var="s" items="${shoplist}">   -->
+     <tbody>
         <tr>
             <!-- 컨트롤러에서 넘겨준 list 모델 객체를 쓰는 방법을 잘 익혀두자 -->
 <!--        <td>${s.shopid}</td>
@@ -312,6 +373,8 @@ $(document).ready(function() {
             <td>${s.userid}</td>
             <td>${s.cnt}</td>
 -->
-      </tr>                                
+        </tr> 
+      </tbody>                                
 <!--         </c:forEach>                             -->
 </table>
+</section>

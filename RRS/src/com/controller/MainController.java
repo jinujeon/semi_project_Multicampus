@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.frame.Biz;
 import com.vo.MemberVO;
 import com.vo.ShopVO;
+import com.vo.Shop_commentVO;
 
 
 @Controller
@@ -31,9 +32,23 @@ public class MainController {
 	@Resource(name="mbiz")
 	Biz<String, MemberVO> mbiz;
 
+	@Resource(name="cbiz")
+	Biz<Integer, Shop_commentVO> cbiz;
+
 	@RequestMapping("/main.mc")
 	public ModelAndView main() {
 		ModelAndView mv = new ModelAndView();
+
+		//댓글 정보
+		ArrayList<Shop_commentVO> shop_comment = null;
+
+		try {
+			shop_comment = cbiz.get();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		mv.addObject("shop_comment", shop_comment);
 		mv.setViewName("main");
 		return mv;
 	}
@@ -42,20 +57,20 @@ public class MainController {
 	@RequestMapping("/login.mc")
 	public ModelAndView login() {
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("centerpage", "login");
-		mv.setViewName("main");
+//		mv.addObject("centerpage", "login");
+		mv.setViewName("login");
 		return mv;
 	}
 
 	//로그인 실행
 	@RequestMapping("/loginimpl.mc")                 //alert 사용을 위해 HttpServletResponse response 추가
 	public ModelAndView loginimpl(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
+
 		ModelAndView mv = new ModelAndView();
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		MemberVO dbuser = null;
-		
+
 		try {
 			dbuser = mbiz.get(id);
 			if(dbuser.getUserpwd().equals(pwd)) {
@@ -63,7 +78,7 @@ public class MainController {
 				session.setAttribute("loginuser", dbuser);
 				mv.addObject("centerpage", "first");
 			}else { //password 오류 시
-				mv.addObject("centerpage", "login");
+			//	mv.addObject("centerpage", "login");
 				//spring에서 alert를 하는 구문----------------------------------
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();
@@ -72,7 +87,7 @@ public class MainController {
 				//---------------------------------------------------------
 			}
 		} catch (Exception e) {
-			mv.addObject("centerpage", "login");
+		//	mv.addObject("centerpage", "login");
 			//
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -99,15 +114,15 @@ public class MainController {
 
 	@RequestMapping("/join.mc")
 	public ModelAndView useradd(ModelAndView mv) {
-		mv.addObject("centerpage", "member/join");
-		mv.setViewName("main");
+	//	mv.addObject("centerpage", "member/join");
+		mv.setViewName("member/join");
 		return mv;
 	}
 
 	//회원가입 실행
 	@RequestMapping("/joinimpl.mc")
 	public ModelAndView useraddimpl(ModelAndView mv, MemberVO member,HttpServletResponse response) throws IOException {
-		
+
 		try {
 			mbiz.register(member);
 			response.setContentType("text/html; charset=UTF-8");

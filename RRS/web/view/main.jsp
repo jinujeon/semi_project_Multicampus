@@ -254,11 +254,11 @@ function displayW(data) {
 	$(items).each(function(index, d) {
 		if ($(d).find('category').text() == 'T1H') {
 			var val = $(d).find('obsrValue').text();
-			$('span>#tem').text('현재기온 : ' + val+'℃');
+			$("#tem").text('현재기온 : ' + val+'℃');
 		}
 		if ($(d).find('category').text() == 'REH') {
 			var val = $(d).find('obsrValue').text();
-			$('span>#moi').text('현재습도 : ' + val+'%');
+			$("#moi").text('현재습도 : ' + val+'%');
 		}
 	});
 };
@@ -298,6 +298,8 @@ $(document).ready(function() {
                               게시판</a></span> <span><a href="#">문의 게시판</a></span>
                   </span></li>
                   <li><a href="#">공지사항</a></li>
+                  <span id="tem">현재 온도</span>
+				  <span id="moi">현재 습도</span>
                   <li class="joinbutton"><a href="join.mc">회원가입</a></li>
                   <li class="loginbutton"><a href="login.mc">로그인</a></li>
                </ul>
@@ -314,6 +316,8 @@ $(document).ready(function() {
                            href="#">문의 게시판</a></span>
                   </span></li>
                   <li><a href="#">공지사항</a></li>
+                  <span id="tem">현재 온도</span>
+				  <span id="moi">현재 습도</span>
                   <li class="joinbutton">${loginuser.nickname}님</li>
                   <li class="loginbutton"><a href="logout.mc">로그아웃</a></li>
                </ul>
