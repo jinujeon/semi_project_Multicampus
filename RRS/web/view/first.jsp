@@ -8,27 +8,29 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2348a50ce2bdcf2f6cf00ff8ad5e426d"></script>
 <style>
-#map {
-	width: 800px;
-	height: 400px;
-	border: 2px solid blue;
+#firsttext{
+	margin-top:5px;
+	margin-bottom:5px;
+	text-align: center;
 }
 
+#map {
+	width: 70%;
+	height: 400px;
+	border: 2px solid black;
+}
 section {
-	width: 95%;
 	height: auto;
 	padding: 10px 0;
-	background: #cbcbcb;
+	background: #F3F0F0;
 }
-
 section>#first {
-	width: 100%;
+	width: 70%;
 	height: 300px;
 	background: white;
 }
-
 section>#second {
-	width: 100%;
+	width: 70%;
 	height: 500px;
 	overflow: auto;
 	background: white;
@@ -43,11 +45,9 @@ section>#second {
    margin: 0 auto;
    text-align:center;
 }
-
 #commentdetails > h2{
    float : left;
 }
-
 #commentdetails > #comment_table{
    width:70%;
    border-collapse:collapse;
@@ -58,7 +58,6 @@ section>#second {
    font-size:20px;
    overflow:auto;
 }
-
 .no, .wr, .pt, .we {
    width:10%;
    height:40px;
@@ -70,12 +69,11 @@ section>#second {
       /*댓글 리스트 CSS END*/
       
 section>#third {
-	width: 100%;
+	width: 70%;
 	height: 300px;
 	overflow: auto;
 	background: white;
 }
-
 .gap1 {
 	height: 15px;
 	clear: both;
@@ -99,7 +97,6 @@ var arrs = null; // 샵 json
 var arrs2 = null; // 추천 json
 var arrsA = null; // 지도리스트 json
 var arrsK = null; // 키워드리스트 json
-
 	
 //검색데이터 표시 및 지도표시 가능하게 위도경도 형태 변환(주소로 검색)
 function display(data) {
@@ -301,14 +298,10 @@ function panTo(lat, lng) {
 	map.panTo(moveLatLon);
 	setMarkers(arrs,arrs2);
 }
-
 /* ----------------------------------------------------------------------------------------- */
 /*                                    shop 등록시 주소로 위도 경도 세팅                                                                              */
 /* ----------------------------------------------------------------------------------------- */
-
-
 function setshopxy() {
-
 	var shopxy = {};
 	
 			$.ajax({
@@ -330,7 +323,6 @@ function setshopxy() {
 					
 				}
 			});
-
 			
 			$.ajax({
 				url: 'shopxyupdate.mc',
@@ -341,14 +333,10 @@ function setshopxy() {
 					
 				},
 				error : function() {
-
 				}
 			});
-
 			
 }
-
-
 //여기 오류뜨면 이클립스 오류임 (정상임)
 $(document).ready(function() {
 	if(${registshop == null}){
@@ -362,12 +350,10 @@ $(document).ready(function() {
 	mapDislapy();
 	setMarkers(arrs,arrs2);
 });
-
-
 </script>
 
 <div id="center">
-	<h1>당신을 위한 맛집</h1>
+	<h1 id="firsttext">당신을 위한 맛집</h1>
 	<div id="map"></div>
 	<section>
 		<p class="gap1"></p>

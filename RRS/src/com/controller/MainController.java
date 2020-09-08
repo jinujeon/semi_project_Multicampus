@@ -71,6 +71,9 @@ public class MainController {
 		String pwd = request.getParameter("pwd");
 		MemberVO dbuser = null;
 
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
 		try {
 			dbuser = mbiz.get(id);
 			if(dbuser.getUserpwd().equals(pwd)) {
@@ -78,22 +81,17 @@ public class MainController {
 				session.setAttribute("loginuser", dbuser);
 				mv.addObject("centerpage", "first");
 			}else { //password 오류 시
-			//	mv.addObject("centerpage", "login");
+				mv.addObject("centerpage", "login");
 				//spring에서 alert를 하는 구문----------------------------------
-				response.setContentType("text/html; charset=UTF-8");
-				PrintWriter out = response.getWriter();
+
 				out.println("<script>alert('로그인에 실패하였습니다'); </script>");
 				out.flush();
 				//---------------------------------------------------------
 			}
 		} catch (Exception e) {
-		//	mv.addObject("centerpage", "login");
-			//
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
+			mv.addObject("centerpage", "login");
 			out.println("<script>alert('로그인 오류입니다'); </script>");
 			out.flush();
-			//
 			e.printStackTrace();
 		}
 		mv.setViewName("main");

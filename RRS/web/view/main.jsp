@@ -15,17 +15,14 @@
    box-sizing: border-box;
    list-style: none;
 }
-
 .container {
    width: 1080px;
    height: 100%;
    padding: 0 20px;
 }
-
 li {
    float: left;
 }
-
 a {
    width: 100%;
    height: 100%;
@@ -33,16 +30,13 @@ a {
    text-decoration: none;
    display: inline-block;
 }
-
 body {
    min-height: 100vh;
    position: relative;
 }
-
 .clear {
    clear: both;
 }
-
 input[type=text] {
    width: 80%;
    padding: 10px 10px;
@@ -54,7 +48,6 @@ input[type=text] {
    font-weight: BOLD;
    font-size: 20px;
 }
-
 input[type=submit] {
    width: 9%;
    padding: 10px 10px;
@@ -65,7 +58,6 @@ input[type=submit] {
    box-sizing: border-box;
    font-weight: BOLD;
 }
-
 /*header css*/
 header {
    width: 100%;
@@ -73,49 +65,45 @@ header {
    line-height: 75px;
    color: #2A0066;
 }
-
 .mainname {
-   font-size:1.5em;  
-   color: green;
+   font-size:2em;  
+   font-weight:600;
+   color: #00FFFF;
 }
-
 /*nav css start*/
 nav {
    width: 100%;
    height: 50px;
-   border-bottom: 3px solid #cbcbcb;
+   background-color:#d8d8d8;
 }
-
-nav.leftMenu {
-   float: left;
-   height: 80%;
+.leftMenu {
+   display: flex;
+	flex-direction: row;
+	width:100%;
+	margin:0;
+	padding:0;
+	background-color:#d8d8d8;
+}
+nav .leftMenu>li {
+	padding:15px;
+	cursor:pointer;
    font-size: 100%;
    font-weight: BOLD;
-   left: 0px;
-}
 
+}
+nav .leftMenu > li > a{
+	text-align:center;
+}
 nav .leftMenu>li.joinbutton{
    float:right;
 }
-
 nav .leftMenu>li.loginbutton{
    float:right;
-}
-
-nav.leftMenu>li {
-   width: 900px;
-   padding: 0 20px;
-   height: 100px;
-   line-height: 100px;
-   text-align: center;
-   cursor: pointer;
-   position: relative;
 }
 
 nav .leftMenu>li:hover>.dropmenu {
    visibility: visible;
 }
-
 nav .leftMenu>li>.dropmenu {
    display: inline-block;
    width: 200px;
@@ -127,7 +115,6 @@ nav .leftMenu>li>.dropmenu {
    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
    visibility: hidden;
 }
-
 nav .leftMenu>li>.dropmenu>span {
    width: 200px;
    display: inline-block;
@@ -136,23 +123,19 @@ nav .leftMenu>li>.dropmenu>span {
    color: #000000;
    font-weight: 400;
 }
-
 nav .leftMenu>li>.dropmenu>span:hover {
    font-weight: 700;
 }
-
 nav .leftMenu>li:hover {
    color: #000000;
    font-weight: 700;
    border-bottom: 3px solid #2478FF;
 }
-
 nav .leftMenu>li.active {
    color: #2478FF;
    font-weight: 700;
    border-bottom: 3px solid #2478FF;
 }
-
 nav.rightMenu {
    height: 80%;
    font-size: 100%;
@@ -160,7 +143,6 @@ nav.rightMenu {
    float: right;
    /* right: 0px; */
 }
-
 nav.rightMenu>li {
    width: 100px;
    height: 36px;
@@ -175,14 +157,12 @@ nav.rightMenu>li {
    cursor: pointer;
    border-radius: 50px;
 }
-
 nav .rightMenu>li:hover, nav .rightMenu>li.active {
    color: orange;
    background: white;
    border-bottom: 3px solid #2478FF;
 }
 /*nav css end*/
-
 /*footer css start*/
 footer {
    width: 100%;
@@ -190,29 +170,24 @@ footer {
    border-top: 1px solid #cbcbcb;
    font-size: 15px;
 }
-
 footer>.container {
    height: auto;
 }
-
 footer>.top {
    width: 100%;
    height: 40px;
    border-bottom: 1px solid #cbcbcb;
    margin-bottom: 15px;
 }
-
 footer>.top span {
    height: 100%;
    line-height: 40px;
    padding-right: 15px;
    cursor: pointer;
 }
-
 footer .top span hover {
    font-weight: 700;
 }
-
 footer .copyright {
    margin-top: 5px;
 }
@@ -294,9 +269,9 @@ $(document).ready(function() {
                   <li class="active"><a href="main.mc">HOME</a></li>
                   <li><a href="https://naver.com">소개</a></li>
                   <li><a href="https://google.com">이용안내</a></li>
-                  <li><span class="dropmenu"> <span><a href="#">자유
+<!--                   <li><span class="dropmenu"> <span><a href="#">자유
                               게시판</a></span> <span><a href="#">문의 게시판</a></span>
-                  </span></li>
+                  </span></li> -->
                   <li><a href="#">공지사항</a></li>
                   <span id="tem">현재 온도</span>
 				  <span id="moi">현재 습도</span>
@@ -311,10 +286,10 @@ $(document).ready(function() {
                   <li><a href="https://naver.com">소개</a></li>
                   <li><a href="https://google.com">이용안내</a></li>
                   <li><a href="shop_regist.mc">맛집등록게시판</a></li>
-                  <li class="dropbox"><a href="shop_list.mc">게시판</a> <span
+<!--                   <li class="dropbox"><a href="shop_list.mc">게시판</a> <span
                      class="dropmenu"> <span><a href="#">자유 게시판</a></span> <span><a
                            href="#">문의 게시판</a></span>
-                  </span></li>
+                  </span></li> -->
                   <li><a href="#">공지사항</a></li>
                   <span id="tem">현재 온도</span>
 				  <span id="moi">현재 습도</span>

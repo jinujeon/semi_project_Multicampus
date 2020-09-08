@@ -6,16 +6,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2348a50ce2bdcf2f6cf00ff8ad5e426d"></script>
 <style>
+#center {
+	background:#F3F0F0;
+}
+#firsttext{
+	margin-top:5px;
+	margin-bottom:5px;
+	text-align: center;
+}
 #map {
-	width: 695px;
+	width: 70%;
 	height: 600px;
-	border: 2px solid blue;
+	border: 2px solid black;
+	background: #F3F0F0;
 }
 	/*가게 게시글 css start*/
 #center > nav {
-	width:100%;
+	width:70%;
 	height:50px;
-	background:white;
+	background: #F3F0F0;
 	font-size:25px;
 	border-top: 7px solid #cbcbcb;	
 }
@@ -32,12 +41,13 @@ input select{
 #center > section{
 	width:100%;
 	height:100%;
-	background:white;
+	background:#F3F0F0;
 }
 		/*가게 게시글 css end*/
 		
 		/*table css start*/
 #shop_table{
+	background:white;
 	width:75%;
 	border-collapse:collapse;
 	border-right:none;
@@ -345,36 +355,38 @@ $(document).ready(function() {
 -->
 
 
-<div id="map"></div>
-	<p class="gap1"></p>
 <div id="center">
-<nav>
-<h1>&nbsp가게 리스트 &nbsp</h1>
-</nav>
-<section>
-<table id="shop_table" border="1">
-	<thead>
-        <tr>
-            <th class="no">NO.</th>
-            <th class="po">사진</th>
-            <th class="sn">가게이름</th>
-            <th class="sw">작성자</th>
-            <th class="sct">조회</th>
-        </tr>
-     </thead>
-        <!-- forEach 문을 활용하여 shop list 보여주기 -->
-<!--        <c:forEach var="s" items="${shoplist}">   -->
-     <tbody>
-        <tr>
-            <!-- 컨트롤러에서 넘겨준 list 모델 객체를 쓰는 방법을 잘 익혀두자 -->
-<!--        <td>${s.shopid}</td>
+	<h1 id="firsttext">${address } 맛집 지도</h1>
+	<div id="map"></div>
+	<p class="gap1"></p>
+	<nav>
+		<h1>&nbsp가게 리스트 &nbsp</h1>
+	</nav>
+	<section>
+		<table id="shop_table" border="1">
+			<thead>
+				<tr>
+					<th class="no">NO.</th>
+					<th class="po">사진</th>
+					<th class="sn">가게이름</th>
+					<th class="sw">작성자</th>
+					<th class="sct">조회</th>
+				</tr>
+			</thead>
+			<!-- forEach 문을 활용하여 shop list 보여주기 -->
+			<!--        <c:forEach var="s" items="${shoplist}">   -->
+			<tbody>
+				<tr>
+					<!-- 컨트롤러에서 넘겨준 list 모델 객체를 쓰는 방법을 잘 익혀두자 -->
+					<!--        <td>${s.shopid}</td>
             <td><img src="img/${s.img1 }"></td>
             <td><a href="shop_detail.mc?shopid=${s.shopid}">${s.shopname}</a></td>
             <td>${s.userid}</td>
             <td>${s.cnt}</td>
 -->
-        </tr> 
-      </tbody>                                
-<!--         </c:forEach>                             -->
-</table>
-</section>
+				</tr>
+			</tbody>
+			<!--         </c:forEach>                             -->
+		</table>
+	</section>
+</div>
