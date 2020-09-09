@@ -298,7 +298,7 @@ $(document).ready(function() {
                   <li class="active"><a href="main.mc">HOME</a></li>
                   <li><a href="https://naver.com">소개</a></li>
                   <li><a href="https://google.com">이용안내</a></li>
-                  <li><a href="shop_regist.mc">맛집등록게시판</a></li>
+                  <li><a href="shop_regist.mc">맛집등록</a></li>
 <!--                   <li class="dropbox"><a href="shop_list.mc">게시판</a> <span
                      class="dropmenu"> <span><a href="#">자유 게시판</a></span> <span><a
                            href="#">문의 게시판</a></span>

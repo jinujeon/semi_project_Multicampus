@@ -363,7 +363,8 @@ function panTo(lat, lng) {
 /* ----------------------------------------------------------------------------------------- */
 function setshopxy() {
    var shopxy = {};
-   
+   var sw = 0;
+   		//주소가 주소
          $.ajax({
             method : 'GET',
             url : 'https://dapi.kakao.com/v2/local/search/address.json',
@@ -377,12 +378,41 @@ function setshopxy() {
                'AddressSize' : 3
             },
             success : function(data) {
-               shopxy = {x:parseFloat((parseFloat(data.documents[0].x)).toFixed(6)) , y:parseFloat((parseFloat(data.documents[0].y)).toFixed(6))};
+            	if(data.meta.total_count != 0){
+                    shopxy = {x:parseFloat((parseFloat(data.documents[0].x)).toFixed(6)) , y:parseFloat((parseFloat(data.documents[0].y)).toFixed(6))};
+            	}else{
+            		sw = 1; // 받아오는 값이 없을때
+            	}
             },
             error : function() {
-               
+
             }
          });
+         
+         
+         //주소가 키워드
+         $.ajax({
+             method : 'GET',
+             url : 'https://dapi.kakao.com/v2/local/search/keyword.json',
+             async : false,
+             headers : {
+                'Authorization' : 'KakaoAK 8bb4664642b1184f894533fe7edb0245'
+             },
+             data : {
+                'query' : '${registshop.address}',
+                'page' : 1,
+                'size' : 3
+             },
+             success : function(data) {
+            	 if(sw== 1){
+                     shopxy = {x:parseFloat((parseFloat(data.documents[0].x)).toFixed(6)) , y:parseFloat((parseFloat(data.documents[0].y)).toFixed(6))};
+             	}
+             },
+             error : function() {
+                alert('error22');
+             }
+       });
+         
          
          $.ajax({
             url: 'shopxyupdate.mc',
@@ -410,7 +440,6 @@ function setshopxy() {
          async : false,
          success : function(result) {
             shoprank = result;
-            console.log(shoprank);
             },    
          error : function() {
             alert('Error33');
@@ -435,10 +464,8 @@ function setshopxy() {
 //여기 오류뜨면 이클립스 오류임 (정상임)
 $(document).ready(function() {
    if(${registshop == null}){
-      
    }else{
-      setshopxy();
-      alert("OK123");
+	   setshopxy();
    }
    arrs = getshopdata(); // DB샵정보
    arrs2 = getshopdata2(); // DB샵추천정보 

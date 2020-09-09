@@ -14,6 +14,7 @@
 /*shop 화면 CSS START*/
 #center>#shopdetails {
    width: 70%;
+   height: 320px;
    background: white;
    border: 1px solid #ccc;
    box-sizing: border-box;
@@ -251,6 +252,7 @@ input[type=file] {
       <br>
       <div id="shopimgname">
          <img onclick="window.open(this.src)" src="img/${shopdetail.img1 }"
+         	style="width: 300px; height: 200px;"
             onmouseenter="zoomIns(event)" onmouseleave="zoomOuts(event)">
          <p>${shopdetail.shopname }</p>
       </div>

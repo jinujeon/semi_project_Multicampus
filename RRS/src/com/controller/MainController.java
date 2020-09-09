@@ -57,7 +57,6 @@ public class MainController {
 	@RequestMapping("/login.mc")
 	public ModelAndView login() {
 		ModelAndView mv = new ModelAndView();
-//		mv.addObject("centerpage", "login");
 		mv.setViewName("login");
 		return mv;
 	}
@@ -70,14 +69,14 @@ public class MainController {
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		MemberVO dbuser = null;
-		
+
 		//spring에서 alert를 하는 구문(ajax에 데이터 보내기 위한 설정)----------------------------------
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
+
 		//댓글 정보
 		ArrayList<Shop_commentVO> shop_comment = null;
-		
+
 		try {
 			dbuser = mbiz.get(id);
 			if(dbuser.getUserpwd().equals(pwd)) {
@@ -85,21 +84,22 @@ public class MainController {
 				session.setAttribute("loginuser", dbuser);
 				mv.addObject("centerpage", "first");
 			}else { //password 오류 시
-				mv.addObject("centerpage", "login");
+				mv.setViewName("login");
 				//spring에서 alert를 하는 구문----------------------------------
 				out.println("<script>alert('로그인에 실패하였습니다'); </script>");
 				out.flush();
 				//---------------------------------------------------------
+				return mv;
 			}
 			shop_comment = cbiz.get();
 			mv.addObject("shop_comment", shop_comment);
+			mv.setViewName("main");
 		} catch (Exception e) {
-			mv.addObject("centerpage", "login");
+			mv.setViewName("login");
 			out.println("<script>alert('로그인 오류입니다'); </script>");
 			out.flush();
 			e.printStackTrace();
 		}
-		mv.setViewName("main");
 		return mv;
 	}
 
@@ -110,7 +110,7 @@ public class MainController {
 		if(session != null) {
 			session.invalidate();
 		}
-		
+
 		//댓글 정보
 		ArrayList<Shop_commentVO> shop_comment = null;
 
@@ -128,7 +128,6 @@ public class MainController {
 
 	@RequestMapping("/join.mc")
 	public ModelAndView useradd(ModelAndView mv) {
-	//	mv.addObject("centerpage", "member/join");
 		mv.setViewName("member/join");
 		return mv;
 	}
@@ -139,25 +138,26 @@ public class MainController {
 
 		//댓글 정보
 		ArrayList<Shop_commentVO> shop_comment = null;
-		
+
+
 		try {
-			mbiz.register(member);
 			shop_comment = cbiz.get();
+			mbiz.register(member);
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('회원가입 되었습니다'); </script>");
 			out.flush();
+		} catch (Exception e) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();			
+			out.println("<script>alert('회원가입 오류입니다'); </script>");
+			out.flush();	
+			e.printStackTrace();
+		} finally {
 			mv.addObject("shop_comment", shop_comment);
 			mv.addObject("centerpage", "first");
 			mv.setViewName("main");
-		} catch (Exception e) {
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('회원가입 오류입니다'); </script>");
-			out.flush();
-			mv.addObject("centerpage", "member/join");
-			e.printStackTrace();
-		}		
+		}
 		return mv;
 	}
 
@@ -231,11 +231,4 @@ public class MainController {
 
 	}
 
-
-
-
 }
-
-
-
-

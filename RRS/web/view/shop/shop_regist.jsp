@@ -135,7 +135,7 @@ input[type=submit] {
 					<div id="srsub">
 						<input type="submit" value="등록">
 					</div>
-
+						<input type="hidden" name="userid" value="${loginuser.userid}">
 				</form>
 			</div>
 		</div>
